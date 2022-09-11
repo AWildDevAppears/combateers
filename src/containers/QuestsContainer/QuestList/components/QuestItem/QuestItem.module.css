@@ -1,0 +1,12 @@
+.badgeList {
+  padding: 0;
+  list-style: none;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.footer {
+  display: flex;
+  justify-content: end;
+}
