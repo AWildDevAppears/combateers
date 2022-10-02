@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, useParams, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import { TabBar } from "./common/components/TabBar/TabBar";
 
@@ -7,16 +7,17 @@ import { RoutingService } from "./common/services/RoutingService";
 
 import { LoadingView } from "./common/views/LoadingView/LoadingView";
 import { StatisticsView } from "./containers/CharacterContainer/Statistics/StatisticsView";
+import { useRouteMatch } from "./common/hooks/useRouteMatch";
 import { QuestList } from "./containers/QuestsContainer/QuestList/QuestList";
 import { ActiveQuest } from "./containers/QuestsContainer/ActiveQuest/ActiveQuest";
 import { QuestComplete } from "./containers/QuestsContainer/QuestComplete/QuestComplete";
 import { Shop } from "./containers/ShopContainer/Shop/Shop";
 
 import style from "./App.module.css";
-import { useRouteMatch } from "./common/hooks/useRouteMatch";
 
 function App() {
   const isLoadingRoute = useRouteMatch(RoutingService.ROUTE.LOADING);
+  const isActiveQuestRoute = useRouteMatch(RoutingService.ROUTE.ACTIVE_QUEST);
 
   return (
     <div className={style.base}>
@@ -46,8 +47,8 @@ function App() {
           <Route path={RoutingService.ROUTE.SHOP} element={<Shop />} />
         </Routes>
       </main>
-      {!isLoadingRoute && (
-        <aside>
+      {!isLoadingRoute && !isActiveQuestRoute && (
+        <aside className={style.aside}>
           <TabBar />
         </aside>
       )}

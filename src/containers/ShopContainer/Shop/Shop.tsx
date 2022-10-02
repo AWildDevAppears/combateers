@@ -1,16 +1,39 @@
 import React, { FunctionComponent } from "react";
 import { Container } from "../../../common/components/Container/Container";
+import { EquipmentCube } from "../../../common/components/EquipmentCube/EquipmentCube";
+
+import style from "./Shop.module.css";
 
 interface IShopProps {}
 
 export const Shop: FunctionComponent<IShopProps> = () => {
   return (
-    <Container>
-      <h1>Here is the shop interface</h1>
-      <p>
-        Use your gold to sell your loot and but new armor and weapons ready for
-        your next adventure.
-      </p>
-    </Container>
+    <div className={style.base}>
+      <Container className={style.content}>
+        <h1>Shop</h1>
+
+        <div className={style.shop}>
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+          <EquipmentCube />
+        </div>
+      </Container>
+      <div className={style.bg}></div>
+    </div>
   );
 };

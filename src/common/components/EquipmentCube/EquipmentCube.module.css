@@ -1,0 +1,6 @@
+.base {
+  aspect-ratio: 1;
+  background-color: rgba(255, 255, 255, 0.6);
+  border: 1px solid #333;
+  margin: 0.5rem;
+}

@@ -1,5 +1,15 @@
 .base {
-  padding: 1rem;
+  padding: 0.5rem 2rem;
   display: flex;
   justify-content: space-between;
+  height: 5rem;
+  background-color: #ddd;
+}
+
+.link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #000;
 }

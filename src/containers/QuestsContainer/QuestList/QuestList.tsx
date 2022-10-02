@@ -1,15 +1,24 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 import { Container } from "../../../common/components/Container/Container";
 import { QuestItem } from "./components/QuestItem/QuestItem";
+
+import style from "./QuestList.module.css";
 
 interface IQuestListProps {}
 
 export const QuestList: FunctionComponent<IQuestListProps> = () => {
-  return (
-    <Container>
-      <h1>List of all of the available quests</h1>
+  const [quests, setQuests] = useState(new Array(12).fill({}));
 
-      <QuestItem />
-    </Container>
+  return (
+    <div className={style.base}>
+      <Container className={style.content}>
+        <h1>Quests</h1>
+
+        {quests.map((quest) => (
+          <QuestItem />
+        ))}
+      </Container>
+      <div className={style.bg}></div>
+    </div>
   );
 };

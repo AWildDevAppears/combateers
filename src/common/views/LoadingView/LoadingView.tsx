@@ -3,6 +3,8 @@ import { useNavigate } from "react-router";
 import { Container } from "../../components/Container/Container";
 import { RoutingService } from "../../services/RoutingService";
 
+import style from "./LoadingView.module.css";
+
 interface ILoadingView {}
 
 export const LoadingView: FunctionComponent<ILoadingView> = () => {
@@ -16,8 +18,11 @@ export const LoadingView: FunctionComponent<ILoadingView> = () => {
   }, []);
 
   return (
-    <Container>
-      <h1>Loading</h1>
+    <Container className={style.base}>
+      <div className={style.contents}>
+        <h1>Combateers</h1>
+        <p>Loading</p>
+      </div>
     </Container>
   );
 };
