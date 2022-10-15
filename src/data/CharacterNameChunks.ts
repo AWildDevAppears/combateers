@@ -4,18 +4,7 @@ export const CharacterNames = [
   "Englewort",
   "Lemon",
   "Lime",
-];
-
-export const CharacterPrefixes = [
-  "Sir",
-  "Madam",
-  "Dr.",
-  "Little",
-  "Giant",
-  "Short",
-  "King",
-  "Queen",
-  "Knight",
+  "Brian",
 ];
 
 export const CharacterSuffixes = [
@@ -25,4 +14,5 @@ export const CharacterSuffixes = [
   "the Forgetful",
   "the Timid",
   "the Tall",
+  "the Blessed",
 ];

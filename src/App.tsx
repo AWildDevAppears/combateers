@@ -11,6 +11,7 @@ import { useRouteMatch } from "./common/hooks/useRouteMatch";
 import { QuestList } from "./containers/QuestsContainer/QuestList/QuestList";
 import { ActiveQuest } from "./containers/QuestsContainer/ActiveQuest/ActiveQuest";
 import { QuestComplete } from "./containers/QuestsContainer/QuestComplete/QuestComplete";
+import { TavernView } from "./common/views/TavernView/TavernView";
 import { Shop } from "./containers/ShopContainer/Shop/Shop";
 
 import style from "./App.module.css";
@@ -43,6 +44,8 @@ function App() {
             path={RoutingService.ROUTE.COMPLETE_QUEST}
             element={<QuestComplete />}
           />
+
+          <Route path={RoutingService.ROUTE.TAVERN} element={<TavernView />} />
 
           <Route path={RoutingService.ROUTE.SHOP} element={<Shop />} />
         </Routes>
