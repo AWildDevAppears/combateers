@@ -1,14 +1,31 @@
 .base {
+  position: relative;
+  height: 100%;
+}
+
+.bg {
   background-image: url("https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80");
   background-repeat: no-repeat;
   background-size: cover;
-  position: relative;
+  background-position: center;
+  height: 100%;
+  width: 100%;
+  filter: blur(5px);
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: 2;
+  overflow: auto;
 }
 
 .sidebar {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: absolute;
 }
 
 .title {

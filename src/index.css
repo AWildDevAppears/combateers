@@ -7,6 +7,7 @@
 body {
   font-family: "Lato", sans-serif;
   font-weight: 300;
+  min-width: 320px; /* Ensure UI no smaller than iPhone 4 */
 }
 
 body,

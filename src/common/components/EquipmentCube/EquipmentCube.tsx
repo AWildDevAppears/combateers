@@ -1,6 +1,6 @@
 import { UilHardHat, UilX } from "@iconscout/react-unicons";
 import classNames from "classnames";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useState } from "react";
 
 import style from "./EquipmentCube.module.css";
 
@@ -25,9 +25,18 @@ export const EquipmentCube: FunctionComponent<IEquipmentCubeProps> = ({
   slot = "any",
   className,
 }) => {
+  const [isActive, setIsActive] = useState(false);
+
   return (
-    <div className={classNames(style.base, className)}>
+    <button
+      onClick={() => {
+        setIsActive(!isActive);
+      }}
+      className={classNames(style.base, className, {
+        [style.active]: isActive,
+      })}
+    >
       {!asset && iconMap[slot]}
-    </div>
+    </button>
   );
 };
