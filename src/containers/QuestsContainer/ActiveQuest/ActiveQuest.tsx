@@ -7,8 +7,10 @@ interface IActiveQuestProps {}
 
 export const ActiveQuest: FunctionComponent<IActiveQuestProps> = () => {
   return (
-    <Container>
-      <QuestSceneGL />
-    </Container>
+    <div style={{ backgroundColor: "#000", height: "100vh" }}>
+      <Container>
+        <QuestSceneGL />
+      </Container>
+    </div>
   );
 };
