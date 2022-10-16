@@ -13,4 +13,28 @@ interface ITile {
  * TODO: support objects and enemies on tile.
  */
 
+/**
+ * xxx
+ * xxx
+ * xxx
+ *
+ * |xx
+ * |xx
+ * |xx
+ *
+ * |--
+ * |xx
+ * |xx
+ *
+ * --|
+ * xx|
+ * xx|
+ *
+ * |-|
+ * |*|
+ * |*|
+ *
+ *
+ */
+
 export const Tiles: { [key: string]: ITile } = {};

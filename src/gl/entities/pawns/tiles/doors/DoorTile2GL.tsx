@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
-import { DoorGL } from "../structures/DoorGL";
-import { WallGL } from "../structures/WallGL";
-import { FloorTileGL } from "./FloorTileGL";
+import { DoorGL } from "../../structures/DoorGL";
+import { WallGL } from "../../structures/WallGL";
+import { FloorTileGL } from "../FloorTileGL";
 
 interface IDoorTile2GLProps {}
 

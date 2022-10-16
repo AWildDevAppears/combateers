@@ -7,6 +7,15 @@ interface IFloorTileGLProps {
   children?: ReactNode;
 }
 
+/**
+ *
+ * x x x x x
+ * x x x x x
+ * x x x x x
+ * x x x x x
+ * x x x x x
+ *
+ */
 export const FloorTileGL: FunctionComponent<IFloorTileGLProps> = ({
   children,
 }) => {
