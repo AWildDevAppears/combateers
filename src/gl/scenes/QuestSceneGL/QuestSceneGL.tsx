@@ -1,7 +1,7 @@
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { FunctionComponent } from "react";
-import { DoorTile2GL } from "../../entities/pawns/tiles/DoorTile2GL";
+import { DoorTile3GL } from "../../entities/pawns/tiles/DoorTile3GL";
 
 interface IQuestSceneGLProps {}
 
@@ -11,7 +11,7 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
       <OrbitControls />
       <ambientLight />
 
-      <DoorTile2GL />
+      <DoorTile3GL />
     </Canvas>
   );
 };
