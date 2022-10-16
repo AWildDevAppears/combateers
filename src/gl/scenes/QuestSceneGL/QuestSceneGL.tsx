@@ -9,6 +9,7 @@ import { DoorTile5GL } from "../../entities/pawns/tiles/doors/DoorTile5GL";
 import { DoorTile6GL } from "../../entities/pawns/tiles/doors/DoorTile6GL";
 import { DoorTile7GL } from "../../entities/pawns/tiles/doors/DoorTile7GL";
 import { DoorTile8GL } from "../../entities/pawns/tiles/doors/DoorTile8GL";
+import { DoorTile9GL } from "../../entities/pawns/tiles/doors/DoorTile9GL";
 
 interface IQuestSceneGLProps {}
 
@@ -18,7 +19,7 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
       <OrbitControls />
       <ambientLight />
 
-      <DoorTile8GL />
+      <DoorTile9GL />
     </Canvas>
   );
 };
