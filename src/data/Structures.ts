@@ -9,6 +9,7 @@ import { FLOOR_MAX, FLOOR_MIN } from "../gl/entities/pawns/tiles/FloorTileGL";
 
 export interface IStructureProps {
   position: Vector3;
+  rotateY: number;
 }
 
 const WALL_THICKNESS = 0.5;
@@ -27,6 +28,17 @@ export const StructurePositions: { [key: string]: Vector3 } = {
   P7: [0, 0, STRUCT_MAX], // Other bottom corner
   P8: [STRUCT_MIN, 0, 0], // Left middle
   P9: [STRUCT_MAX, 0, 0], // Right middle
+};
+
+export const StructureRotations: { [key: string]: number } = {
+  R1: 0,
+  R2: Math.PI / 2,
+  R3: Math.PI,
+  R4: Math.PI + Math.PI / 2,
+  R5: Math.PI / 4,
+  R6: Math.PI - Math.PI / 4,
+  R7: Math.PI + Math.PI / 2 - Math.PI / 4,
+  R8: Math.PI + Math.PI / 2 + Math.PI / 4,
 };
 
 export const Structures: { [key: string]: IStructure } = {
