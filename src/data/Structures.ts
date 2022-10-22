@@ -1,5 +1,7 @@
 import { Vector3 } from "@react-three/fiber";
 import { FunctionComponent } from "react";
+
+// TODO: consider lazy loading these.
 import { PillarGL } from "../gl/entities/pawns/structures/clutter/PillarGL";
 
 export interface IStructureProps {

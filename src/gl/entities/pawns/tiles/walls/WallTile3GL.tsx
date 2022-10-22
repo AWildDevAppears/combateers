@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { ITileProps } from "../../../../../data/Tiles";
 import { WallGL } from "../../structures/WallGL";
-import { FloorTileGL } from "../FloorTileGL";
+import { FloorTileGL, FLOOR_WALL_SLOTS } from "../FloorTileGL";
 
 interface IWallTile3GLProps extends ITileProps {}
 
@@ -14,8 +14,8 @@ export const WallTile3GL: FunctionComponent<IWallTile3GLProps> = ({
 }) => {
   return (
     <FloorTileGL position={position} rotateY={rotateY}>
-      <WallGL position={[2.75, 0, 0]} />
-      <WallGL position={[-2.75, 0, 0]} />
+      <WallGL position={FLOOR_WALL_SLOTS[1].pos} />
+      <WallGL position={FLOOR_WALL_SLOTS[2].pos} />
     </FloorTileGL>
   );
 };

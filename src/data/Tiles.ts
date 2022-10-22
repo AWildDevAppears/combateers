@@ -1,5 +1,7 @@
 import { Vector3 } from "@react-three/fiber";
 import { FunctionComponent, ReactNode } from "react";
+
+// TODO: consider lazy loading these.
 import { DoorTile10GL } from "../gl/entities/pawns/tiles/doors/DoorTile10GL";
 import { DoorTile11GL } from "../gl/entities/pawns/tiles/doors/DoorTile11GL";
 import { DoorTile12GL } from "../gl/entities/pawns/tiles/doors/DoorTile12GL";
