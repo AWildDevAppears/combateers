@@ -2,10 +2,10 @@ import { Vector3 } from "@react-three/fiber";
 import { FunctionComponent } from "react";
 
 // TODO: consider lazy loading these.
-import { PillarGL } from "../gl/entities/pawns/structures/clutter/PillarGL";
-import { TorchGL } from "../gl/entities/pawns/structures/clutter/TorchGL";
-import { ChestGL } from "../gl/entities/pawns/structures/functional/ChestGL";
-import { FLOOR_MAX, FLOOR_MIN } from "../gl/entities/pawns/tiles/FloorTileGL";
+import { PillarGL } from "../gl/entities/actors/structures/clutter/PillarGL";
+import { TorchGL } from "../gl/entities/actors/structures/clutter/TorchGL";
+import { ChestGL } from "../gl/entities/actors/structures/functional/ChestGL";
+import { FLOOR_MAX, FLOOR_MIN } from "../gl/entities/actors/tiles/FloorTileGL";
 
 export interface IStructureProps {
   position: Vector3;

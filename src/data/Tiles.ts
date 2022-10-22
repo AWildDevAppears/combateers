@@ -2,27 +2,27 @@ import { Vector3 } from "@react-three/fiber";
 import { FunctionComponent, ReactNode } from "react";
 
 // TODO: consider lazy loading these.
-import { DoorTile10GL } from "../gl/entities/pawns/tiles/doors/DoorTile10GL";
-import { DoorTile11GL } from "../gl/entities/pawns/tiles/doors/DoorTile11GL";
-import { DoorTile12GL } from "../gl/entities/pawns/tiles/doors/DoorTile12GL";
-import { DoorTile13GL } from "../gl/entities/pawns/tiles/doors/DoorTile13GL";
-import { DoorTile14GL } from "../gl/entities/pawns/tiles/doors/DoorTile14GL";
-import { DoorTile15GL } from "../gl/entities/pawns/tiles/doors/DoorTile15GL";
-import { DoorTile16GL } from "../gl/entities/pawns/tiles/doors/DoorTile16GL";
-import { DoorTile1GL } from "../gl/entities/pawns/tiles/doors/DoorTile1GL";
-import { DoorTile2GL } from "../gl/entities/pawns/tiles/doors/DoorTile2GL";
-import { DoorTile3GL } from "../gl/entities/pawns/tiles/doors/DoorTile3GL";
-import { DoorTile4GL } from "../gl/entities/pawns/tiles/doors/DoorTile4GL";
-import { DoorTile5GL } from "../gl/entities/pawns/tiles/doors/DoorTile5GL";
-import { DoorTile6GL } from "../gl/entities/pawns/tiles/doors/DoorTile6GL";
-import { DoorTile7GL } from "../gl/entities/pawns/tiles/doors/DoorTile7GL";
-import { DoorTile8GL } from "../gl/entities/pawns/tiles/doors/DoorTile8GL";
-import { DoorTile9GL } from "../gl/entities/pawns/tiles/doors/DoorTile9GL";
-import { FloorTileGL } from "../gl/entities/pawns/tiles/FloorTileGL";
-import { WallTile1GL } from "../gl/entities/pawns/tiles/walls/WallTile1GL";
-import { WallTile2GL } from "../gl/entities/pawns/tiles/walls/WallTile2GL";
-import { WallTile3GL } from "../gl/entities/pawns/tiles/walls/WallTile3GL";
-import { WallTile4GL } from "../gl/entities/pawns/tiles/walls/WallTile4GL";
+import { DoorTile10GL } from "../gl/entities/actors/tiles/doors/DoorTile10GL";
+import { DoorTile11GL } from "../gl/entities/actors/tiles/doors/DoorTile11GL";
+import { DoorTile12GL } from "../gl/entities/actors/tiles/doors/DoorTile12GL";
+import { DoorTile13GL } from "../gl/entities/actors/tiles/doors/DoorTile13GL";
+import { DoorTile14GL } from "../gl/entities/actors/tiles/doors/DoorTile14GL";
+import { DoorTile15GL } from "../gl/entities/actors/tiles/doors/DoorTile15GL";
+import { DoorTile16GL } from "../gl/entities/actors/tiles/doors/DoorTile16GL";
+import { DoorTile1GL } from "../gl/entities/actors/tiles/doors/DoorTile1GL";
+import { DoorTile2GL } from "../gl/entities/actors/tiles/doors/DoorTile2GL";
+import { DoorTile3GL } from "../gl/entities/actors/tiles/doors/DoorTile3GL";
+import { DoorTile4GL } from "../gl/entities/actors/tiles/doors/DoorTile4GL";
+import { DoorTile5GL } from "../gl/entities/actors/tiles/doors/DoorTile5GL";
+import { DoorTile6GL } from "../gl/entities/actors/tiles/doors/DoorTile6GL";
+import { DoorTile7GL } from "../gl/entities/actors/tiles/doors/DoorTile7GL";
+import { DoorTile8GL } from "../gl/entities/actors/tiles/doors/DoorTile8GL";
+import { DoorTile9GL } from "../gl/entities/actors/tiles/doors/DoorTile9GL";
+import { FloorTileGL } from "../gl/entities/actors/tiles/FloorTileGL";
+import { WallTile1GL } from "../gl/entities/actors/tiles/walls/WallTile1GL";
+import { WallTile2GL } from "../gl/entities/actors/tiles/walls/WallTile2GL";
+import { WallTile3GL } from "../gl/entities/actors/tiles/walls/WallTile3GL";
+import { WallTile4GL } from "../gl/entities/actors/tiles/walls/WallTile4GL";
 
 export interface ITileProps {
   position: Vector3;

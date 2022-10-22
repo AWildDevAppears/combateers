@@ -2,6 +2,7 @@ import React, { FunctionComponent, useRef } from "react";
 
 interface IPawnGLProps {}
 
+// Stand in for player.
 export const PawnGL: FunctionComponent<IPawnGLProps> = () => {
   const mesh = useRef(null);
   return (
