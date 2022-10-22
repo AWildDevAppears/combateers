@@ -1,4 +1,6 @@
+import { Vector3 } from "@react-three/fiber";
 import React, { FunctionComponent, ReactNode } from "react";
+import { ITileProps } from "../../../../data/Tiles";
 
 const FLOOR_SIZE = 6;
 
@@ -9,7 +11,7 @@ export const FLOOR_WALL_SLOTS = {
   4: { pos: [0, 0, -2.75], rot: Math.PI / 2 },
 };
 
-interface IFloorTileGLProps {
+interface IFloorTileGLProps extends ITileProps {
   children?: ReactNode;
 }
 
@@ -23,10 +25,12 @@ interface IFloorTileGLProps {
  *
  */
 export const FloorTileGL: FunctionComponent<IFloorTileGLProps> = ({
+  position,
+  rotateY,
   children,
 }) => {
   return (
-    <group>
+    <group position={position} rotation-y={rotateY}>
       <mesh>
         <boxGeometry args={[FLOOR_SIZE, 0.5, FLOOR_SIZE]} />
         <meshStandardMaterial color={"blue"} />
