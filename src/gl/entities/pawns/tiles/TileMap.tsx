@@ -9,7 +9,7 @@ interface ITileMapProps {
 
 const TILE_OFFSET = 6;
 
-const createStructs = (structWithPos: string) => {
+const createStructs = (structWithPos: string, idx: number) => {
   const [struct, pos] = structWithPos.split("-");
 
   const position = Reflect.has(StructurePositions, pos)
@@ -18,7 +18,7 @@ const createStructs = (structWithPos: string) => {
 
   if (Reflect.has(Structures, struct)) {
     const Component = Structures[struct];
-    return <Component position={position} />;
+    return <Component key={idx} position={position} />;
   }
 };
 
@@ -34,7 +34,11 @@ const mapTiles = (tileHash: string, idx: number): ReactNode => {
   if (Reflect.has(Tiles, tileID)) {
     const Component = Tiles[tileID];
     return (
-      <Component position={[TILE_OFFSET * idx, 0, 0]} rotateY={position}>
+      <Component
+        key={idx}
+        position={[TILE_OFFSET * idx, 0, 0]}
+        rotateY={position}
+      >
         {injectableStructures}
       </Component>
     );
@@ -46,7 +50,9 @@ const mapTiles = (tileHash: string, idx: number): ReactNode => {
 };
 
 const mapRow = (tileRow: Array<string>, idx: number) => (
-  <group position={[0, 0, TILE_OFFSET * idx]}>{tileRow.map(mapTiles)}</group>
+  <group key={idx} position={[0, 0, TILE_OFFSET * idx]}>
+    {tileRow.map(mapTiles)}
+  </group>
 );
 
 /**
