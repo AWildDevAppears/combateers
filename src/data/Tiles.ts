@@ -1,5 +1,5 @@
 import { Vector3 } from "@react-three/fiber";
-import { FunctionComponent } from "react";
+import { FunctionComponent, ReactNode } from "react";
 import { DoorTile10GL } from "../gl/entities/pawns/tiles/doors/DoorTile10GL";
 import { DoorTile11GL } from "../gl/entities/pawns/tiles/doors/DoorTile11GL";
 import { DoorTile12GL } from "../gl/entities/pawns/tiles/doors/DoorTile12GL";
@@ -25,6 +25,7 @@ import { WallTile4GL } from "../gl/entities/pawns/tiles/walls/WallTile4GL";
 export interface ITileProps {
   position: Vector3;
   rotateY: number;
+  children?: ReactNode;
 }
 
 interface IPosition {
