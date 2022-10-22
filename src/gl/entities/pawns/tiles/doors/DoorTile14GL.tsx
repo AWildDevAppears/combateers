@@ -9,12 +9,14 @@ interface IDoorTile14GLProps extends ITileProps {}
 export const DoorTile14GL: FunctionComponent<IDoorTile14GLProps> = ({
   position,
   rotateY,
+  children,
 }) => {
   return (
     <FloorTileGL position={position} rotateY={rotateY}>
       <DoorGL position={[2.75, 0, 0]} />
       <DoorGL position={[0, 0, -2.75]} rotateY={Math.PI / 2} />
       <WallGL position={[0, 0, 2.75]} rotateY={Math.PI / 2} />
+      {children}
     </FloorTileGL>
   );
 };

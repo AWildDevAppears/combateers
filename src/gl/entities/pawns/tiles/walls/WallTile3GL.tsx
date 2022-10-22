@@ -11,11 +11,13 @@ interface IWallTile3GLProps extends ITileProps {}
 export const WallTile3GL: FunctionComponent<IWallTile3GLProps> = ({
   position,
   rotateY,
+  children,
 }) => {
   return (
     <FloorTileGL position={position} rotateY={rotateY}>
       <WallGL position={FLOOR_WALL_SLOTS[1].pos} />
       <WallGL position={FLOOR_WALL_SLOTS[2].pos} />
+      {children}
     </FloorTileGL>
   );
 };

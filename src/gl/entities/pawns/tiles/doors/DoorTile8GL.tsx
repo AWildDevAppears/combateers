@@ -9,11 +9,13 @@ interface IDoorTile8GLProps extends ITileProps {}
 export const DoorTile8GL: FunctionComponent<IDoorTile8GLProps> = ({
   position,
   rotateY,
+  children,
 }) => (
   <FloorTileGL position={position} rotateY={rotateY}>
     <WallGL position={[2.75, 0, 0]} />
     <DoorGL position={[0, 0, 2.75]} rotateY={Math.PI / 2} />
     <WallGL position={[-2.75, 0, 0]} />
     <WallGL position={[0, 0, -2.75]} rotateY={Math.PI / 2} />
+    {children}
   </FloorTileGL>
 );
