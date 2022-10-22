@@ -1,11 +1,12 @@
-import React, { FunctionComponent, useRef } from "react";
+import { Vector3 } from "@react-three/fiber";
+import React, { FunctionComponent, useMemo, useRef } from "react";
 import { useRelativeTilePosition } from "../../../../../common/hooks/gl/useRelativeTilePosition";
 import { IStructureProps } from "../../../../../data/Structures";
 
-interface IPillarGLProps extends IStructureProps {}
+interface IChestGLProps extends IStructureProps {}
 
-export const PillarGL: FunctionComponent<IPillarGLProps> = ({ position }) => {
-  const geo = useRef<[number, number, number]>([0.4, 2, 0.4]);
+export const ChestGL: FunctionComponent<IChestGLProps> = ({ position }) => {
+  const geo = useRef<[number, number, number]>([1, 0.4, 0.4]);
   const pos = useRelativeTilePosition(geo.current, position);
 
   return (

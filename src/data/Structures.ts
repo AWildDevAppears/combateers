@@ -3,6 +3,8 @@ import { FunctionComponent } from "react";
 
 // TODO: consider lazy loading these.
 import { PillarGL } from "../gl/entities/pawns/structures/clutter/PillarGL";
+import { TorchGL } from "../gl/entities/pawns/structures/clutter/TorchGL";
+import { ChestGL } from "../gl/entities/pawns/structures/functional/ChestGL";
 import { FLOOR_MAX, FLOOR_MIN } from "../gl/entities/pawns/tiles/FloorTileGL";
 
 export interface IStructureProps {
@@ -29,4 +31,6 @@ export const StructurePositions: { [key: string]: Vector3 } = {
 
 export const Structures: { [key: string]: IStructure } = {
   S1: PillarGL,
+  S2: TorchGL,
+  S3: ChestGL,
 };
