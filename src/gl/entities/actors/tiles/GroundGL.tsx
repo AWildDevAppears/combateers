@@ -1,3 +1,4 @@
+import { usePlane } from "@react-three/cannon";
 import { Plane } from "@react-three/drei";
 import React, { FunctionComponent } from "react";
 
@@ -10,8 +11,12 @@ export const GroundGL: FunctionComponent<IGroundGLProps> = ({
   position,
   size,
 }) => {
+  const [mesh] = usePlane(() => ({
+    position,
+    rotation: [-Math.PI / 2, 0, 0],
+  }));
   return (
-    <Plane position={position} args={size} rotation-x={-Math.PI / 2}>
+    <Plane ref={mesh} args={size}>
       <meshStandardMaterial color={"blue"} />
     </Plane>
   );

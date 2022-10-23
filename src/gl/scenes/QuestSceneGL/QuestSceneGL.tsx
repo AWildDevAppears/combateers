@@ -1,3 +1,4 @@
+import { Physics } from "@react-three/cannon";
 import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { FunctionComponent } from "react";
@@ -11,8 +12,9 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
     <Canvas>
       <OrbitControls />
       <ambientLight />
-
-      <TileMap tileset={Tilesets.Chapel1}></TileMap>
+      <Physics>
+        <TileMap tileset={Tilesets.devRoom}></TileMap>
+      </Physics>
     </Canvas>
   );
 };
