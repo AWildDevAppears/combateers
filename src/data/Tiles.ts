@@ -1,4 +1,3 @@
-import { Vector3 } from "@react-three/fiber";
 import { FunctionComponent, ReactNode } from "react";
 
 // TODO: consider lazy loading these.
@@ -25,7 +24,7 @@ import { WallTile3GL } from "../gl/entities/actors/tiles/walls/WallTile3GL";
 import { WallTile4GL } from "../gl/entities/actors/tiles/walls/WallTile4GL";
 
 export interface ITileProps {
-  position: Vector3;
+  position: [number, number, number];
   rotateY: number;
   children?: ReactNode;
 }

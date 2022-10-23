@@ -1,9 +1,7 @@
-import { Vector3 } from "@react-three/fiber";
-import { group } from "console";
 import React, { FunctionComponent } from "react";
 
 interface IDoorGLProps {
-  position?: Vector3;
+  position?: [number, number, number];
   rotateY?: number;
 }
 

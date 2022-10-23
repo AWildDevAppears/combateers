@@ -1,11 +1,10 @@
-import { Vector3 } from "@react-three/fiber";
 import React, { FunctionComponent, ReactNode } from "react";
 import { ITileProps } from "../../../../data/Tiles";
 
 const FLOOR_SIZE = 6;
 
 interface IWallSlot {
-  pos: Vector3;
+  pos: [number, number, number];
   rot: number;
 }
 
