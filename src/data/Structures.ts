@@ -5,6 +5,8 @@ import { FunctionComponent } from "react";
 import { PillarGL } from "../gl/entities/actors/structures/clutter/PillarGL";
 import { TorchGL } from "../gl/entities/actors/structures/clutter/TorchGL";
 import { ChestGL } from "../gl/entities/actors/structures/functional/ChestGL";
+import { PlayerEntranceGL } from "../gl/entities/actors/structures/markers/PlayerEntranceGL";
+import { PlayerExitGL } from "../gl/entities/actors/structures/markers/PlayerExitGL";
 import { FLOOR_MAX, FLOOR_MIN } from "../gl/entities/actors/tiles/FloorTileGL";
 
 export interface IStructureProps {
@@ -42,6 +44,8 @@ export const StructureRotations: { [key: string]: number } = {
 };
 
 export const Structures: { [key: string]: IStructure } = {
+  E: PlayerEntranceGL,
+  X: PlayerExitGL,
   S1: PillarGL,
   S2: TorchGL,
   S3: ChestGL,
