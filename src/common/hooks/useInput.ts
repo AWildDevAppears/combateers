@@ -77,80 +77,79 @@ const INPUT_AXES = [
 ];
 
 export const useInput = () => {
-  const inputs = useRef<IInputs>({
+  const [inputs, setInputs] = useState<IInputs>({
     forward: false,
     backward: false,
     left: false,
     right: false,
   });
+  // const gamepad = useRef<Gamepad>();
 
-  const gamepad = useRef<Gamepad>();
+  // const updateStatus = useCallback(() => {
+  //   gamepad.current?.buttons.forEach((button, idx) => {
+  //     if (gamepad.current?.id === XINPUT) {
+  //       const buttonName = INPUT_XINPUT[idx];
 
-  const updateStatus = useCallback(() => {
-    gamepad.current?.buttons.forEach((button, idx) => {
-      if (gamepad.current?.id === XINPUT) {
-        const buttonName = INPUT_XINPUT[idx];
+  //       if (!Reflect.has(InputMap, buttonName)) {
+  //         return;
+  //       }
 
-        if (!Reflect.has(InputMap, buttonName)) {
-          return;
-        }
+  //       const inputField: RegisteredInputs = InputMap[
+  //         buttonName as ValidInputXINPUT
+  //       ] as RegisteredInputs;
 
-        const inputField: RegisteredInputs = InputMap[
-          buttonName as ValidInputXINPUT
-        ] as RegisteredInputs;
+  //       if (inputs.current[inputField] === button.pressed) return;
 
-        if (inputs.current[inputField] === button.pressed) return;
+  //       inputs.current = {
+  //         ...inputs.current,
+  //         [inputField]: button.pressed,
+  //       };
+  //     }
+  //   });
 
-        inputs.current = {
-          ...inputs.current,
-          [inputField]: button.pressed,
-        };
-      }
-    });
+  // TODO: Fix this.
+  // GAMEPAD CONTROLLER AXES
+  // gamepad.current?.axes.forEach((axis, idx) => {
+  //   // Get axis direction.
+  //   const activeAxis = INPUT_AXES[idx];
 
-    // TODO: Fix this.
-    // GAMEPAD CONTROLLER AXES
-    // gamepad.current?.axes.forEach((axis, idx) => {
-    //   // Get axis direction.
-    //   const activeAxis = INPUT_AXES[idx];
+  //   // Ig nore right stick
+  //   if (idx !== 1 && idx !== 0) return;
+  //   if (axis < CONTROLLER_DEAD_ZONE && axis > -CONTROLLER_DEAD_ZONE) return;
 
-    //   // Ig nore right stick
-    //   if (idx !== 1 && idx !== 0) return;
-    //   if (axis < CONTROLLER_DEAD_ZONE && axis > -CONTROLLER_DEAD_ZONE) return;
+  //   const newInputs = {
+  //     ...inputs.current,
+  //   };
 
-    //   const newInputs = {
-    //     ...inputs.current,
-    //   };
+  //   if (idx === 1) {
+  //     const axisActive =
+  //       axis > CONTROLLER_DEAD_ZONE || axis < CONTROLLER_DEAD_ZONE;
+  //     newInputs[axis < 0 ? "forward" : "backward"] = axisActive;
+  //   }
 
-    //   if (idx === 1) {
-    //     const axisActive =
-    //       axis > CONTROLLER_DEAD_ZONE || axis < CONTROLLER_DEAD_ZONE;
-    //     newInputs[axis < 0 ? "forward" : "backward"] = axisActive;
-    //   }
+  //   if (idx === 0) {
+  //     const axisActive =
+  //       axis > CONTROLLER_DEAD_ZONE || axis < CONTROLLER_DEAD_ZONE;
+  //     newInputs[axis < 0 ? "left" : "right"] = axisActive;
+  //   }
 
-    //   if (idx === 0) {
-    //     const axisActive =
-    //       axis > CONTROLLER_DEAD_ZONE || axis < CONTROLLER_DEAD_ZONE;
-    //     newInputs[axis < 0 ? "left" : "right"] = axisActive;
-    //   }
+  //   let hasChanged = false;
+  //   for (let key in newInputs) {
+  //     hasChanged =
+  //       inputs.current[key as RegisteredInputs] !==
+  //       newInputs[key as RegisteredInputs];
 
-    //   let hasChanged = false;
-    //   for (let key in newInputs) {
-    //     hasChanged =
-    //       inputs.current[key as RegisteredInputs] !==
-    //       newInputs[key as RegisteredInputs];
+  //     if (hasChanged) continue;
+  //   }
 
-    //     if (hasChanged) continue;
-    //   }
+  //   if (!hasChanged) return;
+  //   inputs.current = {
+  //     ...newInputs,
+  //   };
+  // });
 
-    //   if (!hasChanged) return;
-    //   inputs.current = {
-    //     ...newInputs,
-    //   };
-    // });
-
-    requestAnimationFrame(updateStatus);
-  }, []);
+  // requestAnimationFrame(updateStatus);
+  // }, []);
 
   useEffect(() => {
     const keyDownListener = (evt: KeyboardEvent) => {
@@ -162,10 +161,10 @@ export const useInput = () => {
 
       const inputField = InputMap[key as ValidInputKB];
 
-      inputs.current = {
-        ...inputs.current,
+      setInputs((i) => ({
+        ...i,
         [inputField]: true,
-      };
+      }));
     };
     window.addEventListener("keydown", keyDownListener);
 
@@ -178,40 +177,40 @@ export const useInput = () => {
 
       const inputField = InputMap[key as ValidInput];
 
-      inputs.current = {
-        ...inputs.current,
+      setInputs((i) => ({
+        ...i,
         [inputField]: false,
-      };
+      }));
     };
     window.addEventListener("keyup", keyUpListener);
 
     // GAMEPAD
-    const gamePadConnectListener = (evt: GamepadEvent) => {
-      gamepad.current = evt.gamepad;
+    // const gamePadConnectListener = (evt: GamepadEvent) => {
+    //   gamepad.current = evt.gamepad;
 
-      requestAnimationFrame(updateStatus);
-    };
-    window.addEventListener("gamepadconnected", gamePadConnectListener);
+    //   requestAnimationFrame(updateStatus);
+    // };
+    // window.addEventListener("gamepadconnected", gamePadConnectListener);
 
-    const gamePadDisconnectListener = (evt: GamepadEvent) => {
-      if (!gamepad.current) return;
+    // const gamePadDisconnectListener = (evt: GamepadEvent) => {
+    //   if (!gamepad.current) return;
 
-      if (gamepad.current?.index === evt.gamepad.index) {
-        gamepad.current = undefined;
-      }
-    };
-    window.addEventListener("gamepaddisconnected", gamePadDisconnectListener);
+    //   if (gamepad.current?.index === evt.gamepad.index) {
+    //     gamepad.current = undefined;
+    //   }
+    // };
+    // window.addEventListener("gamepaddisconnected", gamePadDisconnectListener);
 
     return () => {
       window.removeEventListener("keydown", keyDownListener);
       window.removeEventListener("keyup", keyUpListener);
-      window.removeEventListener("gamepadconnected", gamePadConnectListener);
-      window.removeEventListener(
-        "gamepaddisconnected",
-        gamePadDisconnectListener
-      );
+      // window.removeEventListener("gamepadconnected", gamePadConnectListener);
+      // window.removeEventListener(
+      //   "gamepaddisconnected",
+      //   gamePadDisconnectListener
+      // );
     };
   }, []);
 
-  return inputs.current;
+  return inputs;
 };

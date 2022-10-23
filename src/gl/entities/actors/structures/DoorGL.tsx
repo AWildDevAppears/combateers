@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import { WALL_HEIGHT } from "../../../../constants";
 
 interface IDoorGLProps {
   position?: [number, number, number];
@@ -12,11 +13,11 @@ export const DoorGL: FunctionComponent<IDoorGLProps> = ({
   return (
     <group position={position} rotation-y={rotateY}>
       <mesh scale={1} position={[0, 0, -2]}>
-        <boxGeometry args={[0.5, 2, 2]} />
+        <boxGeometry args={[0.5, WALL_HEIGHT, 2]} />
         <meshStandardMaterial color={"red"} />
       </mesh>
       <mesh scale={1} position={[0, 0, 2]}>
-        <boxGeometry args={[0.5, 2, 2]} />
+        <boxGeometry args={[0.5, WALL_HEIGHT, 2]} />
         <meshStandardMaterial color={"red"} />
       </mesh>
       <mesh scale={1} position={[0, 0.75, 0]}>

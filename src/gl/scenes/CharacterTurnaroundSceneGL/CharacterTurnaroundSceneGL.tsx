@@ -12,7 +12,7 @@ export const CharacterTurnaroundSceneGL: FunctionComponent<
     <Scene>
       <ambientLight />
 
-      <PawnGL />
+      <PawnGL position={[0, 0, 0]} />
     </Scene>
   );
 };
