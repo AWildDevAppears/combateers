@@ -84,24 +84,32 @@ export const TileMap: FunctionComponent<ITileMapProps> = ({ tileset }) => {
     );
   };
 
-  const tiles = useMemo(() => tileset.map(mapRow), [tileset]);
+  const [tiles, setTiles] = useState<Array<ReactNode>>([]);
   const [floorSize, setFloorSize] = useState<[number, number]>();
   const [floorPos, setFloorPos] = useState<[number, number, number]>();
 
   useEffect(() => {
+    maxTiles.current = 0;
+    setTiles(tileset.map(mapRow));
     const floorWidth = tileset.length * TILE_OFFSET;
     const floorHeight = maxTiles.current * TILE_OFFSET;
 
     setFloorSize([floorHeight, floorWidth]);
-    setFloorPos([floorWidth / 2 - TILE_OFFSET, 0, floorHeight / 2]);
-  }, [tiles]);
 
-  if (!floorSize) return null;
+    // Position should be the exact middle of all of the tiles we are creating
+    setFloorPos([
+      floorHeight / 2 - TILE_OFFSET / 2,
+      0,
+      floorWidth / 2 - TILE_OFFSET / 2,
+    ]);
+  }, [tileset]);
 
   return (
-    <group>
+    <group position={[0, 0, 0]}>
       {tiles}
-      <GroundGL position={floorPos || [0, 0, 0]} size={floorSize} />
+      {floorPos && floorSize && (
+        <GroundGL position={floorPos} size={floorSize} />
+      )}
     </group>
   );
 };
