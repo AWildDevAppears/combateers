@@ -38,12 +38,8 @@ export const FloorTileGL: FunctionComponent<IFloorTileGLProps> = ({
 }) => {
   return (
     <group position={position} rotation-y={rotateY}>
-      <mesh>
-        <boxGeometry args={[FLOOR_SIZE, 0.5, FLOOR_SIZE]} />
-        <meshStandardMaterial color={"blue"} />
-      </mesh>
       {React.Children.count(children) > 0 && (
-        <group position={[0, 1.25, 0]}>{children}</group>
+        <group position={[0, 1, 0]}>{children}</group>
       )}
     </group>
   );

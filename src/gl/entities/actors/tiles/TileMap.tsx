@@ -1,4 +1,13 @@
-import React, { FunctionComponent, ReactNode, useMemo } from "react";
+import { Plane } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
+import React, {
+  FunctionComponent,
+  ReactNode,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import {
   StructurePositions,
   StructureRotations,
@@ -58,17 +67,41 @@ const mapTiles = (tileHash: string, idx: number): ReactNode => {
   );
 };
 
-const mapRow = (tileRow: Array<string>, idx: number) => (
-  <group key={idx} position={[0, 0, TILE_OFFSET * idx]}>
-    {tileRow.map(mapTiles)}
-  </group>
-);
-
 /**
  * Take an array of tile identifiers, create their tiles and plot them out on a grid.
  */
 export const TileMap: FunctionComponent<ITileMapProps> = ({ tileset }) => {
-  const tiles = useMemo(() => tileset.map(mapRow), [tileset]);
+  const maxTiles = useRef(0);
 
-  return <group>{tiles}</group>;
+  const mapRow = (tileRow: Array<string>, idx: number) => {
+    maxTiles.current = Math.max(tileRow.length, maxTiles.current);
+    return (
+      <group key={idx} position={[0, 0, TILE_OFFSET * idx]}>
+        {tileRow.map(mapTiles)}
+      </group>
+    );
+  };
+
+  const tiles = useMemo(() => tileset.map(mapRow), [tileset]);
+  const [floorSize, setFloorSize] = useState<[number, number]>();
+  const [floorPos, setFloorPos] = useState<[number, number, number]>();
+
+  useEffect(() => {
+    const floorWidth = tileset.length * TILE_OFFSET;
+    const floorHeight = maxTiles.current * TILE_OFFSET;
+
+    setFloorSize([floorHeight, floorWidth]);
+    setFloorPos([floorWidth / 2 - TILE_OFFSET, 0, floorHeight / 2]);
+  }, [tiles]);
+
+  if (!floorSize) return null;
+
+  return (
+    <group>
+      {tiles}
+      <Plane position={floorPos} args={floorSize} rotation-x={-Math.PI / 2}>
+        <meshStandardMaterial color={"blue"} />
+      </Plane>
+    </group>
+  );
 };
