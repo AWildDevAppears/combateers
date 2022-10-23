@@ -213,5 +213,5 @@ export const useInput = () => {
     };
   }, []);
 
-  return inputs;
+  return inputs.current;
 };
