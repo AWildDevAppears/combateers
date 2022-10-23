@@ -23,13 +23,9 @@ interface IFloorTileGLProps extends ITileProps {
 }
 
 /**
- *
- * x x x x x
- * x x x x x
- * x x x x x
- * x x x x x
- * x x x x x
- *
+ * Doesn't actually create a floor tile per say.
+ * Enforces a size for each tile and locks all of the walls and objects to the tiles scale.
+ * The actual ground will be created be the TileMap.
  */
 export const FloorTileGL: FunctionComponent<IFloorTileGLProps> = ({
   position,

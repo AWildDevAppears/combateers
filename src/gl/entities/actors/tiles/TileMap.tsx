@@ -15,6 +15,7 @@ import {
 } from "../../../../data/Structures";
 import { RotationPositions, Tiles } from "../../../../data/Tiles";
 import { FloorTileGL } from "./FloorTileGL";
+import { GroundGL } from "./GroundGL";
 
 interface ITileMapProps {
   tileset: Array<Array<string>>;
@@ -69,6 +70,7 @@ const mapTiles = (tileHash: string, idx: number): ReactNode => {
 
 /**
  * Take an array of tile identifiers, create their tiles and plot them out on a grid.
+ * Once we have our tileset, apply a single plane to the bottom of it to act as the ground.
  */
 export const TileMap: FunctionComponent<ITileMapProps> = ({ tileset }) => {
   const maxTiles = useRef(0);
@@ -99,9 +101,7 @@ export const TileMap: FunctionComponent<ITileMapProps> = ({ tileset }) => {
   return (
     <group>
       {tiles}
-      <Plane position={floorPos} args={floorSize} rotation-x={-Math.PI / 2}>
-        <meshStandardMaterial color={"blue"} />
-      </Plane>
+      <GroundGL position={floorPos || [0, 0, 0]} size={floorSize} />
     </group>
   );
 };
