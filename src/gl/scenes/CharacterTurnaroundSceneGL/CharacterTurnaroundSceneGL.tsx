@@ -1,5 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import React, { FunctionComponent } from "react";
+import { IdlePlayerGL } from "../../entities/actors/models/IdlePlayer";
 import { PawnGL } from "../../entities/pawn/PawnGL";
 import { Scene } from "../Scene/Scene";
 
@@ -12,7 +13,7 @@ export const CharacterTurnaroundSceneGL: FunctionComponent<
     <Scene>
       <ambientLight />
 
-      <PawnGL position={[0, 0, 0]} />
+      <IdlePlayerGL />
     </Scene>
   );
 };

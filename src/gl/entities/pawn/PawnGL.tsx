@@ -1,8 +1,10 @@
 import { useSphere } from "@react-three/cannon";
 import { useFrame } from "@react-three/fiber";
-import React, { FunctionComponent, Ref, useEffect, useRef } from "react";
+import React, { FunctionComponent, Ref } from "react";
 import { Vector3 } from "three";
 import { useInput } from "../../../common/hooks/useInput";
+import { GROUP_LAYERS } from "../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
+import { useCollision } from "../../logistics/collisions/CollisionProviderGL/hooks/useCollision";
 
 interface IPawnGLProps {
   position: [number, number, number];
@@ -22,6 +24,8 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
     fixedRotation: true,
   }));
   const { forward, backward, left, right } = useInput();
+
+  useCollision(GROUP_LAYERS.WALLS, mesh.current as THREE.Mesh);
 
   const handleIdle = () => {};
 
