@@ -15,12 +15,12 @@ export const WallTile4GL: FunctionComponent<IWallTile4GLProps> = ({
 }) => {
   return (
     <FloorTileGL position={position} rotateY={rotateY}>
-      <WallGL
-        position={FLOOR_WALL_SLOTS[3].pos}
-        rotateY={FLOOR_WALL_SLOTS[1].rot}
-      />
       <WallGL position={FLOOR_WALL_SLOTS[1].pos} />
       <WallGL position={FLOOR_WALL_SLOTS[2].pos} />
+      <WallGL
+        position={FLOOR_WALL_SLOTS[3].pos}
+        rotateY={FLOOR_WALL_SLOTS[3].rot}
+      />
       {children}
     </FloorTileGL>
   );

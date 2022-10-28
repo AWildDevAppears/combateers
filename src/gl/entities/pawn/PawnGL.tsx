@@ -1,10 +1,13 @@
 import { useSphere } from "@react-three/cannon";
 import { useFrame } from "@react-three/fiber";
-import React, { FunctionComponent, Ref } from "react";
+import React, { FunctionComponent, Ref, useRef } from "react";
 import { Vector3 } from "three";
 import { useInput } from "../../../common/hooks/useInput";
 import { GROUP_LAYERS } from "../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
-import { useCollision } from "../../logistics/collisions/CollisionProviderGL/hooks/useCollision";
+import {
+  ICollisionMap,
+  useCollision,
+} from "../../logistics/collisions/CollisionProviderGL/hooks/useCollision";
 
 interface IPawnGLProps {
   position: [number, number, number];
@@ -24,8 +27,23 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
     fixedRotation: true,
   }));
   const { forward, backward, left, right } = useInput();
+  const collisions = {
+    collU: false,
+    collD: false,
+    collL: false,
+    collR: false,
+  };
 
-  useCollision(GROUP_LAYERS.WALLS, mesh.current as THREE.Mesh);
+  useCollision(
+    GROUP_LAYERS.WALLS,
+    mesh.current as THREE.Mesh,
+    ({ collU, collD, collL, collR }) => {
+      collisions.collU = collU;
+      collisions.collD = collD;
+      collisions.collL = collL;
+      collisions.collR = collR;
+    }
+  );
 
   const handleIdle = () => {};
 
@@ -40,8 +58,19 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
     let sideVector = new Vector3(0, 0, 0);
     let direction = new Vector3(0, 0, 0);
 
-    frontVector.set(0, 0, Number(forward) - Number(backward));
-    sideVector.set(Number(right) - Number(left), 0, 0);
+    // TODO: Allow player model to rotate and walk in facing direction.
+
+    frontVector.set(
+      0,
+      0,
+      Number(forward && !collisions.collU) -
+        Number(backward && !collisions.collD)
+    );
+    sideVector.set(
+      Number(right && !collisions.collR) - Number(left && !collisions.collL),
+      0,
+      0
+    );
     direction
       .subVectors(frontVector, sideVector)
       .normalize()

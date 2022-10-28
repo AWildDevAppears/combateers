@@ -3,7 +3,18 @@ import { useContext } from "react";
 import { Raycaster, Vector3 } from "three";
 import { CollisionContext } from "../CollisionProviderGL";
 
-export const useCollision = (collisionGroup: string, mesh?: THREE.Mesh) => {
+export interface ICollisionMap {
+  collU: boolean;
+  collD: boolean;
+  collR: boolean;
+  collL: boolean;
+}
+
+export const useCollision = (
+  collisionGroup: string,
+  mesh?: THREE.Mesh,
+  onCollide?: (collisions: ICollisionMap) => void
+) => {
   const ctx = useContext(CollisionContext);
   useFrame(() => {
     if (!mesh) return;
@@ -25,7 +36,14 @@ export const useCollision = (collisionGroup: string, mesh?: THREE.Mesh) => {
         collisions.length > 0 &&
         collisions[0].distance < directionVector.length()
       ) {
-        console.log(collisions);
+        // TODO: Handle all collisions
+        onCollide &&
+          onCollide({
+            collU: collisions[0].point.z >= 2,
+            collD: collisions[0].point.z < 0,
+            collR: collisions[0].point.x < 0,
+            collL: collisions[0].point.x >= 2,
+          });
         break;
       }
     }

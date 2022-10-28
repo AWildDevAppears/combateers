@@ -16,7 +16,7 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
       <ambientLight />
       <CollisionProviderGL>
         <Physics>
-          <TileMap tileset={Tilesets.lonely}></TileMap>
+          <TileMap tileset={Tilesets.collCheck}></TileMap>
           <PawnGL position={[1, 1, 1]} lockIdle={false} />
         </Physics>
       </CollisionProviderGL>

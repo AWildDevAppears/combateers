@@ -35,9 +35,8 @@ export const CollisionProviderGL: FunctionComponent<
   });
 
   const addToGroup = (group: string, mesh?: Mesh) => {
-    console.log("Add to group");
     if (!mesh) return;
-    console.log("Adding mesh", mesh.uuid);
+
     collisionGroups.current[group][mesh.uuid] = mesh;
   };
 

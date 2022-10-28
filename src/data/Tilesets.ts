@@ -17,4 +17,5 @@ export const Tilesets = {
     ["W1:P3", "F1::", "F1::", "W1::"],
     ["W2:P4", "W1:P4:", "W1:P4:", "W2::"],
   ],
+  collCheck: [["W4"]],
 };
