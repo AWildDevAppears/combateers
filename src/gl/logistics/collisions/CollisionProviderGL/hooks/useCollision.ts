@@ -10,12 +10,17 @@ export interface ICollisionMap {
   collL: boolean;
 }
 
+/**
+ * One way we cdould possibly handle thsi an d improve performance is to only allow collisions in the tile which the entity using this
+ * hook is in. This will also mean that we can send out large rays in all directionsand easily tell if we are hitting an object or not.
+ */
 export const useCollision = (
   collisionGroup: string,
-  mesh?: THREE.Mesh,
-  onCollide?: (collisions: ICollisionMap) => void
+  onCollide: (collisions: ICollisionMap) => void,
+  mesh?: THREE.Mesh
 ) => {
   const ctx = useContext(CollisionContext);
+
   useFrame(() => {
     if (!mesh) return;
     const origin = mesh.position.clone();
@@ -32,18 +37,20 @@ export const useCollision = (
       let collisions = raycast.intersectObjects(
         Object.values(ctx.collisionGroups[collisionGroup])
       );
+
       if (
         collisions.length > 0 &&
         collisions[0].distance < directionVector.length()
       ) {
-        // TODO: Handle all collisions
-        onCollide &&
-          onCollide({
-            collU: collisions[0].point.z >= 2,
-            collD: collisions[0].point.z < 0,
-            collR: collisions[0].point.x < 0,
-            collL: collisions[0].point.x >= 2,
-          });
+        // TODO: The logic behind this is by no means correct
+        // TODO: Reduce stickiness when pressed against walls.
+        // TODO: Ensure user cannot phase through walls if moving up into the side of a wall.
+        onCollide({
+          collU: collisions[0].point.z >= 2,
+          collD: collisions[0].point.z < 0,
+          collR: collisions[0].point.x < 0,
+          collL: collisions[0].point.x >= 2,
+        });
         break;
       }
     }

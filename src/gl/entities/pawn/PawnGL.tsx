@@ -36,13 +36,13 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
 
   useCollision(
     GROUP_LAYERS.WALLS,
-    mesh.current as THREE.Mesh,
     ({ collU, collD, collL, collR }) => {
       collisions.collU = collU;
       collisions.collD = collD;
       collisions.collL = collL;
       collisions.collR = collR;
-    }
+    },
+    mesh.current as THREE.Mesh
   );
 
   const handleIdle = () => {};
@@ -81,7 +81,7 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
 
   return (
     <mesh ref={mesh as Ref<THREE.Mesh>} scale={1}>
-      <boxGeometry args={[1, 1.8, 1]} />
+      <boxGeometry args={[1, 1, 1]} />
     </mesh>
   );
 };
