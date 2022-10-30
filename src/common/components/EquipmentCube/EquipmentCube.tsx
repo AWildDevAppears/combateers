@@ -7,6 +7,8 @@ import style from "./EquipmentCube.module.css";
 interface IEquipmentCubeProps {
   slot?: "helmet" | "torso" | "legs" | "feet" | "weapon" | "accessory" | "any";
   asset?: string;
+  isActive?: boolean;
+  onActiveChange?: () => void;
   className?: string;
 }
 
@@ -23,15 +25,13 @@ const iconMap = {
 export const EquipmentCube: FunctionComponent<IEquipmentCubeProps> = ({
   asset,
   slot = "any",
+  isActive,
+  onActiveChange,
   className,
 }) => {
-  const [isActive, setIsActive] = useState(false);
-
   return (
     <button
-      onClick={() => {
-        setIsActive(!isActive);
-      }}
+      onClick={onActiveChange}
       className={classNames(style.base, className, {
         [style.active]: isActive,
       })}
