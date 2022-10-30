@@ -1,7 +1,6 @@
 import React, { FunctionComponent } from "react";
 import { Container } from "../../../common/components/Container/Container";
 import { EquipmentCube } from "../../../common/components/EquipmentCube/EquipmentCube";
-import { useCharacter } from "../../../common/hooks/useCharacter";
 import { CharacterTurnaroundSceneGL } from "../../../gl/scenes/CharacterTurnaroundSceneGL/CharacterTurnaroundSceneGL";
 
 import style from "./StatisticsView.module.css";

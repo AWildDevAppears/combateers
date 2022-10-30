@@ -121,8 +121,6 @@ export const TileMap: FunctionComponent<ITileMapProps> = ({
 
     setFloorSize([floorHeight, floorWidth]);
 
-    console.log("Floor", floorHeight, floorWidth);
-
     // Position should be the exact middle of all of the tiles we are creating
     setFloorPos([
       floorHeight / 2 - TILE_OFFSET / 2,

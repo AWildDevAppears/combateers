@@ -14,8 +14,8 @@ export const QuestList: FunctionComponent<IQuestListProps> = () => {
       <Container className={style.content}>
         <h1>Quests</h1>
 
-        {quests.map((quest) => (
-          <QuestItem />
+        {quests.map((quest, idx) => (
+          <QuestItem key={idx} />
         ))}
       </Container>
       <div className={style.bg}></div>
