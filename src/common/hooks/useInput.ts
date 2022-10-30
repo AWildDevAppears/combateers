@@ -5,11 +5,12 @@ export interface IInputs {
   backward: boolean;
   left: boolean;
   right: boolean;
+  interact: boolean;
 }
 
 const CONTROLLER_DEAD_ZONE = 0.05;
 
-type RegisteredInputs = "forward" | "backward" | "left" | "right";
+type RegisteredInputs = "forward" | "backward" | "left" | "right" | "interact";
 
 type ValidInputKB = "w" | "a" | "s" | "d";
 type ValidInputXINPUT =
@@ -31,6 +32,7 @@ export const InputMap = {
   s: "backward",
   a: "left",
   d: "right",
+  e: "interact",
 
   // XINPUT
   XINPUT_UP: "forward",
@@ -82,7 +84,38 @@ export const useInput = () => {
     backward: false,
     left: false,
     right: false,
+    interact: false,
   });
+
+  const keyDownListener = useCallback((evt: KeyboardEvent) => {
+    const key: string = evt.key.toLowerCase();
+
+    if (!Reflect.has(InputMap, key)) {
+      return;
+    }
+
+    const inputField = InputMap[key as ValidInputKB];
+
+    setInputs((i) => ({
+      ...i,
+      [inputField]: true,
+    }));
+  }, []);
+
+  const keyUpListener = useCallback((evt: KeyboardEvent) => {
+    const key: string = evt.key.toLowerCase();
+
+    if (!Reflect.has(InputMap, key)) {
+      return;
+    }
+
+    const inputField = InputMap[key as ValidInput];
+
+    setInputs((i) => ({
+      ...i,
+      [inputField]: false,
+    }));
+  }, []);
   // const gamepad = useRef<Gamepad>();
 
   // const updateStatus = useCallback(() => {
@@ -152,36 +185,7 @@ export const useInput = () => {
   // }, []);
 
   useEffect(() => {
-    const keyDownListener = (evt: KeyboardEvent) => {
-      const key: string = evt.key.toLowerCase();
-
-      if (!Reflect.has(InputMap, key)) {
-        return;
-      }
-
-      const inputField = InputMap[key as ValidInputKB];
-
-      setInputs((i) => ({
-        ...i,
-        [inputField]: true,
-      }));
-    };
     window.addEventListener("keydown", keyDownListener);
-
-    const keyUpListener = (evt: KeyboardEvent) => {
-      const key: string = evt.key.toLowerCase();
-
-      if (!Reflect.has(InputMap, key)) {
-        return;
-      }
-
-      const inputField = InputMap[key as ValidInput];
-
-      setInputs((i) => ({
-        ...i,
-        [inputField]: false,
-      }));
-    };
     window.addEventListener("keyup", keyUpListener);
 
     // GAMEPAD
@@ -202,6 +206,7 @@ export const useInput = () => {
     // window.addEventListener("gamepaddisconnected", gamePadDisconnectListener);
 
     return () => {
+      // TODO: Ensure there is only ever one keypress event listener.
       window.removeEventListener("keydown", keyDownListener);
       window.removeEventListener("keyup", keyUpListener);
       // window.removeEventListener("gamepadconnected", gamePadConnectListener);

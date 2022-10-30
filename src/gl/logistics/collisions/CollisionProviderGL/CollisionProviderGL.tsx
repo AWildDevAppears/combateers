@@ -9,6 +9,7 @@ export const GROUP_LAYERS = {
   GROUND: "ground",
   WALLS: "walls",
   ENEMIES: "enemies",
+  PLAYER: "player",
 };
 
 interface ICollisionContext {
@@ -17,12 +18,15 @@ interface ICollisionContext {
   removeFromGroup: (group: string, mesh: Mesh) => void;
 }
 
+const defaultCollisionGroups = {
+  [GROUP_LAYERS.GROUND]: {},
+  [GROUP_LAYERS.WALLS]: {},
+  [GROUP_LAYERS.ENEMIES]: {},
+  [GROUP_LAYERS.PLAYER]: {},
+};
+
 export const CollisionContext = React.createContext<ICollisionContext>({
-  collisionGroups: {
-    [GROUP_LAYERS.GROUND]: {},
-    [GROUP_LAYERS.WALLS]: {},
-    [GROUP_LAYERS.ENEMIES]: {},
-  },
+  collisionGroups: defaultCollisionGroups,
   addToGroup: (group: string, mesh: Mesh) => {},
   removeFromGroup: (group: string, mesh: Mesh) => {},
 });
@@ -30,11 +34,9 @@ export const CollisionContext = React.createContext<ICollisionContext>({
 export const CollisionProviderGL: FunctionComponent<
   ICollisionProviderGLProps
 > = ({ children }) => {
-  const collisionGroups = useRef<{ [key: string]: { [key: string]: Mesh } }>({
-    [GROUP_LAYERS.GROUND]: {},
-    [GROUP_LAYERS.WALLS]: {},
-    [GROUP_LAYERS.ENEMIES]: {},
-  });
+  const collisionGroups = useRef<{ [key: string]: { [key: string]: Mesh } }>(
+    defaultCollisionGroups
+  );
 
   const addToGroup = (group: string, mesh?: Mesh) => {
     if (!mesh) return;

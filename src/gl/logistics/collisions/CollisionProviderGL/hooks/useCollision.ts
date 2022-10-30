@@ -45,6 +45,23 @@ export const useCollision = (
         // TODO: The logic behind this is by no means correct
         // TODO: Reduce stickiness when pressed against walls.
         // TODO: Ensure user cannot phase through walls if moving up into the side of a wall.
+        // Possibly look at distance? Maybe have multiple vertices poking out of the model (8)?
+
+        /**
+         * Possible plan for future collision mapping.
+         *
+         * LT  T   RT
+         *   \ | /
+         * L---*---R
+         *   / | \
+         * LD  D   RD
+         *
+         * If LT || T || RT and nothing else (CollU)
+         * If LT || L || LD and nothing else (CollL)
+         * If LD || D || RD and nothing else (CollD)
+         * If RT || R || RD and nothing else (CollR)
+         */
+
         onCollide({
           collU: collisions[0].point.z >= 2,
           collD: collisions[0].point.z < 0,

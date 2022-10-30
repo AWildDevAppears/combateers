@@ -1,13 +1,14 @@
 import { useSphere } from "@react-three/cannon";
 import { useFrame } from "@react-three/fiber";
-import React, { FunctionComponent, Ref, useRef } from "react";
-import { Vector3 } from "three";
+import React, { FunctionComponent, Ref, RefObject, useRef } from "react";
+import { Mesh, Vector3 } from "three";
 import { useInput } from "../../../common/hooks/useInput";
 import { GROUP_LAYERS } from "../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
 import {
   ICollisionMap,
   useCollision,
 } from "../../logistics/collisions/CollisionProviderGL/hooks/useCollision";
+import { useCollisionGroup } from "../../logistics/collisions/CollisionProviderGL/hooks/useCollisionGroup";
 
 interface IPawnGLProps {
   position: [number, number, number];
@@ -44,6 +45,9 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
     },
     mesh.current as THREE.Mesh
   );
+
+  // For interactions with objects like NPCs, chests, doors etc.
+  useCollisionGroup(GROUP_LAYERS.PLAYER, mesh as RefObject<Mesh>);
 
   const handleIdle = () => {};
 
