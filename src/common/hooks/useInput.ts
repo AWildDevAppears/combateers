@@ -6,13 +6,21 @@ export interface IInputs {
   left: boolean;
   right: boolean;
   interact: boolean;
+  negative: boolean;
+  developer: false;
 }
 
 const CONTROLLER_DEAD_ZONE = 0.05;
 
-type RegisteredInputs = "forward" | "backward" | "left" | "right" | "interact";
+type RegisteredInputs =
+  | "forward"
+  | "backward"
+  | "left"
+  | "right"
+  | "interact"
+  | "negative";
 
-type ValidInputKB = "w" | "a" | "s" | "d";
+type ValidInputKB = "w" | "a" | "s" | "d" | "e" | "esc";
 type ValidInputXINPUT =
   | "XINPUT_UP"
   | "XINPUT_DOWN"
@@ -33,6 +41,8 @@ export const InputMap = {
   a: "left",
   d: "right",
   e: "interact",
+  esc: "negative",
+  l: "developer",
 
   // XINPUT
   XINPUT_UP: "forward",
@@ -78,6 +88,43 @@ const INPUT_AXES = [
   "CONTROLLER_RY",
 ];
 
+type eventFunc = (evt: KeyboardEvent) => void;
+
+interface IInputEventState {
+  downEvents: { [key: string]: eventFunc };
+  upEvents: { [key: string]: eventFunc };
+}
+
+const state: IInputEventState = {
+  downEvents: {},
+  upEvents: {},
+};
+
+const keyDownListener = (evt: KeyboardEvent) => {
+  Object.values(state.downEvents).forEach((event) => {
+    event(evt);
+  });
+};
+
+const keyUpListener = (evt: KeyboardEvent) => {
+  Object.values(state.upEvents).forEach((event) => {
+    event(evt);
+  });
+};
+
+const addDownEvent = (name: string, event: eventFunc) =>
+  (state.downEvents[name] = event);
+
+const addUpEvent = (name: string, event: eventFunc) =>
+  (state.upEvents[name] = event);
+
+window.addEventListener("keydown", keyDownListener);
+window.addEventListener("keyup", keyUpListener);
+
+const useInputEventStore = create<IInputEventState>((set) => {
+  return state;
+});
+
 export const useInput = () => {
   const [inputs, setInputs] = useState<IInputs>({
     forward: false,
@@ -85,37 +132,44 @@ export const useInput = () => {
     left: false,
     right: false,
     interact: false,
+    negative: false,
+    developer: false,
   });
 
-  const keyDownListener = useCallback((evt: KeyboardEvent) => {
-    const key: string = evt.key.toLowerCase();
+  const store = useInputEventStore();
 
-    if (!Reflect.has(InputMap, key)) {
-      return;
-    }
+  useEffect(() => {
+    addDownEvent("inputDown", (evt: KeyboardEvent) => {
+      const key: string = evt.key.toLowerCase();
 
-    const inputField = InputMap[key as ValidInputKB];
+      if (!Reflect.has(InputMap, key)) {
+        return;
+      }
 
-    setInputs((i) => ({
-      ...i,
-      [inputField]: true,
-    }));
+      const inputField = InputMap[key as ValidInputKB];
+
+      setInputs((i) => ({
+        ...i,
+        [inputField]: true,
+      }));
+    });
+
+    addUpEvent("inputUp", (evt: KeyboardEvent) => {
+      const key: string = evt.key.toLowerCase();
+
+      if (!Reflect.has(InputMap, key)) {
+        return;
+      }
+
+      const inputField = InputMap[key as ValidInput];
+
+      setInputs((i) => ({
+        ...i,
+        [inputField]: false,
+      }));
+    });
   }, []);
 
-  const keyUpListener = useCallback((evt: KeyboardEvent) => {
-    const key: string = evt.key.toLowerCase();
-
-    if (!Reflect.has(InputMap, key)) {
-      return;
-    }
-
-    const inputField = InputMap[key as ValidInput];
-
-    setInputs((i) => ({
-      ...i,
-      [inputField]: false,
-    }));
-  }, []);
   // const gamepad = useRef<Gamepad>();
 
   // const updateStatus = useCallback(() => {
@@ -184,38 +238,36 @@ export const useInput = () => {
   // requestAnimationFrame(updateStatus);
   // }, []);
 
-  useEffect(() => {
-    window.addEventListener("keydown", keyDownListener);
-    window.addEventListener("keyup", keyUpListener);
+  // useEffect(() => {
+  // window.addEventListener("keydown", keyDownListener);
+  // window.addEventListener("keyup", keyUpListener);
 
-    // GAMEPAD
-    // const gamePadConnectListener = (evt: GamepadEvent) => {
-    //   gamepad.current = evt.gamepad;
+  // GAMEPAD
+  // const gamePadConnectListener = (evt: GamepadEvent) => {
+  //   gamepad.current = evt.gamepad;
 
-    //   requestAnimationFrame(updateStatus);
-    // };
-    // window.addEventListener("gamepadconnected", gamePadConnectListener);
+  //   requestAnimationFrame(updateStatus);
+  // };
+  // window.addEventListener("gamepadconnected", gamePadConnectListener);
 
-    // const gamePadDisconnectListener = (evt: GamepadEvent) => {
-    //   if (!gamepad.current) return;
+  // const gamePadDisconnectListener = (evt: GamepadEvent) => {
+  //   if (!gamepad.current) return;
 
-    //   if (gamepad.current?.index === evt.gamepad.index) {
-    //     gamepad.current = undefined;
-    //   }
-    // };
-    // window.addEventListener("gamepaddisconnected", gamePadDisconnectListener);
+  //   if (gamepad.current?.index === evt.gamepad.index) {
+  //     gamepad.current = undefined;
+  //   }
+  // };
+  // window.addEventListener("gamepaddisconnected", gamePadDisconnectListener);
 
-    return () => {
-      // TODO: Ensure there is only ever one keypress event listener.
-      window.removeEventListener("keydown", keyDownListener);
-      window.removeEventListener("keyup", keyUpListener);
-      // window.removeEventListener("gamepadconnected", gamePadConnectListener);
-      // window.removeEventListener(
-      //   "gamepaddisconnected",
-      //   gamePadDisconnectListener
-      // );
-    };
-  }, []);
+  // return () => {
+  // TODO: Ensure there is only ever one keypress event listener.
+  // window.removeEventListener("gamepadconnected", gamePadConnectListener);
+  // window.removeEventListener(
+  //   "gamepaddisconnected",
+  //   gamePadDisconnectListener
+  // );
+  //   };
+  // }, []);
 
   return inputs;
 };

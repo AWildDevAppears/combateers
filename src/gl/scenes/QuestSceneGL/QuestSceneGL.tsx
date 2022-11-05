@@ -7,6 +7,7 @@ import { Tilesets } from "../../../data/Tilesets";
 import { TileMap } from "../../entities/actors/tiles/TileMap";
 import { PawnGL } from "../../entities/pawn/PawnGL";
 import { CollisionProviderGL } from "../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
+import { MasterScene } from "../MasterScene/MasterScene";
 
 interface IQuestSceneGLProps {}
 
@@ -16,20 +17,18 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
   return (
     <>
       <ContainerInventory isOpen={false} />
-      <Canvas>
+      <MasterScene>
         <OrbitControls />
         <ambientLight />
         <CollisionProviderGL>
-          <Physics>
-            <TileMap
-              tileset={Tilesets.devRoom}
-              onGetPlayerSpawn={setPlayerPosition}
-            >
-              {playerPos && <PawnGL position={playerPos} lockIdle={false} />}
-            </TileMap>
-          </Physics>
+          <TileMap
+            tileset={Tilesets.devRoom}
+            onGetPlayerSpawn={setPlayerPosition}
+          >
+            {playerPos && <PawnGL position={playerPos} lockIdle={false} />}
+          </TileMap>
         </CollisionProviderGL>
-      </Canvas>
+      </MasterScene>
     </>
   );
 };
