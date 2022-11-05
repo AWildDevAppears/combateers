@@ -1,7 +1,7 @@
-import { Physics } from "@react-three/cannon";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Torus } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
-import React, { FunctionComponent, useState } from "react";
+import { CuboidCollider, Debug, Physics, RigidBody } from "@react-three/rapier";
+import React, { FunctionComponent, Suspense, useState } from "react";
 import { ContainerInventory } from "../../../common/gameUI/ContainerInventory/ContainerInventory";
 import { Tilesets } from "../../../data/Tilesets";
 import { TileMap } from "../../entities/actors/tiles/TileMap";
@@ -17,17 +17,15 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
   return (
     <>
       <ContainerInventory isOpen={false} />
-      <MasterScene>
+      <MasterScene hasPhysics={true}>
         <OrbitControls />
         <ambientLight />
-        <CollisionProviderGL>
-          <TileMap
-            tileset={Tilesets.devRoom}
-            onGetPlayerSpawn={setPlayerPosition}
-          >
-            {playerPos && <PawnGL position={playerPos} lockIdle={false} />}
-          </TileMap>
-        </CollisionProviderGL>
+        <TileMap
+          tileset={Tilesets.devRoom}
+          onGetPlayerSpawn={setPlayerPosition}
+        >
+          {playerPos && <PawnGL position={playerPos} lockIdle={false} />}
+        </TileMap>
       </MasterScene>
     </>
   );

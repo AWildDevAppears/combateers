@@ -1,8 +1,7 @@
-import React, { FunctionComponent, useRef } from "react";
-import { Mesh } from "three";
+import { CuboidCollider, RigidBody } from "@react-three/rapier";
+import { RigidBodyApi } from "@react-three/rapier/dist/declarations/src/types";
+import React, { FunctionComponent, useEffect, useRef } from "react";
 import { WALL_HEIGHT } from "../../../../constants";
-import { GROUP_LAYERS } from "../../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
-import { useCollisionGroup } from "../../../logistics/collisions/CollisionProviderGL/hooks/useCollisionGroup";
 
 interface IDoorGLProps {
   position?: [number, number, number];
@@ -13,29 +12,28 @@ export const DoorGL: FunctionComponent<IDoorGLProps> = ({
   position,
   rotateY,
 }) => {
-  const doorTopRef = useRef<Mesh>(null);
-  const doorLeftRef = useRef<Mesh>(null);
-  const doorRightRef = useRef<Mesh>(null);
-
-  // TODO: Allow useCollisionGroup to handle mesh groups so we only have to call it once for complex(?) entities.
-  useCollisionGroup(GROUP_LAYERS.WALLS, doorTopRef);
-  useCollisionGroup(GROUP_LAYERS.WALLS, doorLeftRef);
-  useCollisionGroup(GROUP_LAYERS.WALLS, doorRightRef);
-
   return (
     <group position={position} rotation-y={rotateY}>
-      <mesh scale={1} position={[0, 0, -2]} ref={doorLeftRef}>
-        <boxGeometry args={[0.5, WALL_HEIGHT, 2]} />
-        <meshStandardMaterial color={"red"} />
-      </mesh>
-      <mesh scale={1} position={[0, 0, 2]} ref={doorRightRef}>
-        <boxGeometry args={[0.5, WALL_HEIGHT, 2]} />
-        <meshStandardMaterial color={"red"} />
-      </mesh>
-      <mesh scale={1} position={[0, 0.85, 0]} ref={doorTopRef}>
-        <boxGeometry args={[0.5, 0.3, 2]} />
-        <meshStandardMaterial color={"red"} />
-      </mesh>
+      <CuboidCollider position={[0, 0, -2]} args={[0.25, WALL_HEIGHT / 2, 1]}>
+        <mesh scale={1}>
+          <boxGeometry args={[0.5, WALL_HEIGHT, 2]} />
+          <meshStandardMaterial color={"red"} />
+        </mesh>
+      </CuboidCollider>
+
+      <CuboidCollider position={[0, 0, 2]} args={[0.25, WALL_HEIGHT / 2, 1]}>
+        <mesh scale={1}>
+          <boxGeometry args={[0.5, WALL_HEIGHT, 2]} />
+          <meshStandardMaterial color={"red"} />
+        </mesh>
+      </CuboidCollider>
+
+      <CuboidCollider position={[0, 0.85, 0]} args={[0.25, 0.3 / 2, 1]}>
+        <mesh scale={1}>
+          <boxGeometry args={[0.5, 0.3, 2]} />
+          <meshStandardMaterial color={"red"} />
+        </mesh>
+      </CuboidCollider>
     </group>
   );
 };

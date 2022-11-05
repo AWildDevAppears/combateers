@@ -37,7 +37,7 @@ export const TileMap: FunctionComponent<ITileMapProps> = ({
 }) => {
   const maxTiles = useRef(0);
   const [tiles, setTiles] = useState<Array<ReactNode>>([]);
-  const [floorSize, setFloorSize] = useState<[number, number]>();
+  const [floorSize, setFloorSize] = useState<[number, number, number]>();
   const [floorPos, setFloorPos] = useState<[number, number, number]>();
 
   const currentRow = useRef<number>(0);
@@ -119,7 +119,7 @@ export const TileMap: FunctionComponent<ITileMapProps> = ({
     const floorWidth = tileset.length * TILE_OFFSET;
     const floorHeight = maxTiles.current * TILE_OFFSET;
 
-    setFloorSize([floorHeight, floorWidth]);
+    setFloorSize([floorHeight, 0.5, floorWidth]);
 
     // Position should be the exact middle of all of the tiles we are creating
     setFloorPos([

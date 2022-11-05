@@ -121,10 +121,6 @@ const addUpEvent = (name: string, event: eventFunc) =>
 window.addEventListener("keydown", keyDownListener);
 window.addEventListener("keyup", keyUpListener);
 
-const useInputEventStore = create<IInputEventState>((set) => {
-  return state;
-});
-
 export const useInput = () => {
   const [inputs, setInputs] = useState<IInputs>({
     forward: false,
@@ -135,8 +131,6 @@ export const useInput = () => {
     negative: false,
     developer: false,
   });
-
-  const store = useInputEventStore();
 
   useEffect(() => {
     addDownEvent("inputDown", (evt: KeyboardEvent) => {

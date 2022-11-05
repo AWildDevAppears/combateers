@@ -1,14 +1,27 @@
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, {
+  createContext,
+  FunctionComponent,
+  ReactNode,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { useInput } from "../../hooks/useInput";
 
 import style from "./DeveloperOverlay.module.css";
 
-interface IDeveloperOverlayProps {}
+interface IDeveloperOverlayProps {
+  children?: ReactNode;
+}
 
-export const DeveloperOverlay: FunctionComponent<
-  IDeveloperOverlayProps
-> = () => {
-  const [isDeveloperMode, setDeveloperMode] = useState(false);
+export const DeveloperMode = createContext({
+  isDeveloperMode: false,
+});
+
+export const DeveloperOverlay: FunctionComponent<IDeveloperOverlayProps> = ({
+  children,
+}) => {
+  const [isDeveloperMode, setDeveloperMode] = useState(true);
   const isToggling = useRef(false);
 
   const { developer } = useInput();
@@ -26,8 +39,17 @@ export const DeveloperOverlay: FunctionComponent<
     }
   }, [developer]);
   return (
-    <div className={style.base}>
-      {isDeveloperMode && <h1>I am the developer mode</h1>}
-    </div>
+    <>
+      <div className={style.base}>
+        {isDeveloperMode && <h1>I am the developer mode</h1>}
+      </div>
+      <DeveloperMode.Provider
+        value={{
+          isDeveloperMode,
+        }}
+      >
+        {children}
+      </DeveloperMode.Provider>
+    </>
   );
 };

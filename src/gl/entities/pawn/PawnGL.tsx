@@ -1,32 +1,28 @@
-import { useSphere } from "@react-three/cannon";
 import { useFrame } from "@react-three/fiber";
-import React, { FunctionComponent, Ref, RefObject, useRef } from "react";
+import { RigidBody, RigidBodyApi } from "@react-three/rapier";
+import React, {
+  FunctionComponent,
+  Ref,
+  RefObject,
+  useEffect,
+  useRef,
+} from "react";
 import { Mesh, Vector3 } from "three";
 import { useInput } from "../../../common/hooks/useInput";
-import { GROUP_LAYERS } from "../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
-import {
-  ICollisionMap,
-  useCollision,
-} from "../../logistics/collisions/CollisionProviderGL/hooks/useCollision";
-import { useCollisionGroup } from "../../logistics/collisions/CollisionProviderGL/hooks/useCollisionGroup";
 
 interface IPawnGLProps {
   position: [number, number, number];
   lockIdle?: boolean;
 }
 
-const MOVE_SPEED = 10;
+const MOVE_SPEED = 0.1;
 
 // Stand in for player.
 export const PawnGL: FunctionComponent<IPawnGLProps> = ({
   position,
   lockIdle = true,
 }) => {
-  const [mesh, api] = useSphere(() => ({
-    position,
-    mass: lockIdle ? 0 : 10,
-    fixedRotation: true,
-  }));
+  const mesh = useRef<RigidBodyApi>(null);
   const { forward, backward, left, right } = useInput();
   const collisions = {
     collU: false,
@@ -35,27 +31,22 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
     collR: false,
   };
 
-  useCollision(
-    GROUP_LAYERS.WALLS,
-    ({ collU, collD, collL, collR }) => {
-      collisions.collU = collU;
-      collisions.collD = collD;
-      collisions.collL = collL;
-      collisions.collR = collR;
-    },
-    mesh.current as THREE.Mesh
-  );
-
-  // For interactions with objects like NPCs, chests, doors etc.
-  useCollisionGroup(GROUP_LAYERS.PLAYER, mesh as RefObject<Mesh>);
-
   const handleIdle = () => {};
+
+  useEffect(() => {
+    const api = mesh.current as RigidBodyApi;
+    api.setEnabledRotations(false, false, false);
+    api.setAngularDamping(1);
+    api.setLinearDamping(1);
+  }, [mesh]);
 
   useFrame(() => {
     if (lockIdle) {
       handleIdle();
       return;
     }
+
+    const api = mesh.current as RigidBodyApi;
 
     // Calculating front/side movement ...
     let frontVector = new Vector3(0, 0, 0);
@@ -80,12 +71,14 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
       .normalize()
       .multiplyScalar(MOVE_SPEED);
 
-    api.velocity.set(direction.x, -10, direction.z);
+    api.applyImpulse({ x: direction.x, y: 0, z: direction.z });
   });
 
   return (
-    <mesh ref={mesh as Ref<THREE.Mesh>} scale={1}>
-      <boxGeometry args={[1, 1, 1]} />
-    </mesh>
+    <RigidBody colliders="hull" position={position} ref={mesh}>
+      <mesh scale={1}>
+        <boxGeometry args={[1, 1, 1]} />
+      </mesh>
+    </RigidBody>
   );
 };
