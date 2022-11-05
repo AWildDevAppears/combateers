@@ -1,5 +1,11 @@
 import { useFrame } from "@react-three/fiber";
-import { RigidBody, RigidBodyApi } from "@react-three/rapier";
+import {
+  BallCollider,
+  ColliderApi,
+  MeshCollider,
+  RigidBody,
+  RigidBodyApi,
+} from "@react-three/rapier";
 import React, {
   FunctionComponent,
   Ref,
@@ -75,10 +81,14 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
   });
 
   return (
-    <RigidBody colliders="hull" position={position} ref={mesh}>
-      <mesh scale={1}>
-        <boxGeometry args={[1, 1, 1]} />
-      </mesh>
-    </RigidBody>
+    <>
+      <RigidBody colliders="hull" position={position} ref={mesh}>
+        <MeshCollider type="hull">
+          <mesh scale={1}>
+            <boxGeometry args={[1, 1, 1]} />
+          </mesh>
+        </MeshCollider>
+      </RigidBody>
+    </>
   );
 };

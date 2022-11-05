@@ -1,5 +1,4 @@
-import { CuboidCollider, RigidBody } from "@react-three/rapier";
-import { RigidBodyApi } from "@react-three/rapier/dist/declarations/src/types";
+import { CuboidCollider } from "@react-three/rapier";
 import React, { FunctionComponent, useEffect, useRef } from "react";
 import { WALL_HEIGHT } from "../../../../constants";
 
