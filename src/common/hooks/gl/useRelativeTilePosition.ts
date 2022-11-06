@@ -19,15 +19,27 @@ export const useRelativeTilePosition = (
 
     // We're either not rotating or the object is backwards, we don't need to do anything with this.
     if (rotation === 0 || rotation === Math.PI) {
-      return [xPos, y - (WALL_HEIGHT - geoY) / WALL_HEIGHT, zPos] as Vector3;
+      return [xPos, y - (WALL_HEIGHT - geoY) / WALL_HEIGHT, zPos] as [
+        number,
+        number,
+        number
+      ];
     }
 
     // If we are rotated 90 degrees, we can just flip the X and Z value
     if (rotation === Math.PI / 2 || rotation === Math.PI + Math.PI / 2) {
-      return [zPos, y - (WALL_HEIGHT - geoY) / WALL_HEIGHT, xPos] as Vector3;
+      return [zPos, y - (WALL_HEIGHT - geoY) / WALL_HEIGHT, xPos] as [
+        number,
+        number,
+        number
+      ];
     }
 
     // TODO: Handle any other rotation.
-    return [xPos, y - (WALL_HEIGHT - geoY) / WALL_HEIGHT, zPos] as Vector3;
+    return [xPos, y - (WALL_HEIGHT - geoY) / WALL_HEIGHT, zPos] as [
+      number,
+      number,
+      number
+    ];
   }, [position, geo]);
 };

@@ -10,31 +10,6 @@ export interface IInputs {
   developer: false;
 }
 
-const CONTROLLER_DEAD_ZONE = 0.05;
-
-type RegisteredInputs =
-  | "forward"
-  | "backward"
-  | "left"
-  | "right"
-  | "interact"
-  | "negative";
-
-type ValidInputKB = "w" | "a" | "s" | "d" | "e" | "esc";
-type ValidInputXINPUT =
-  | "XINPUT_UP"
-  | "XINPUT_DOWN"
-  | "XINPUT_LEFT"
-  | "XINPUT_RIGHT";
-type ValidInputControllerAxes =
-  | "CONTROLLER_L_LEFT"
-  | "CONTROLLER_L_RIGHT"
-  | "CONTROLLER_L_UP"
-  | "CONTROLLER_L_DOWN";
-//   | "CONTROLLER_RX"
-//   | "CONTROLLER_RY";
-
-type ValidInput = ValidInputKB | ValidInputXINPUT | ValidInputControllerAxes;
 export const InputMap = {
   w: "forward",
   s: "backward",
@@ -100,27 +75,6 @@ const state: IInputEventState = {
   upEvents: {},
 };
 
-const keyDownListener = (evt: KeyboardEvent) => {
-  Object.values(state.downEvents).forEach((event) => {
-    event(evt);
-  });
-};
-
-const keyUpListener = (evt: KeyboardEvent) => {
-  Object.values(state.upEvents).forEach((event) => {
-    event(evt);
-  });
-};
-
-const addDownEvent = (name: string, event: eventFunc) =>
-  (state.downEvents[name] = event);
-
-const addUpEvent = (name: string, event: eventFunc) =>
-  (state.upEvents[name] = event);
-
-window.addEventListener("keydown", keyDownListener);
-window.addEventListener("keyup", keyUpListener);
-
 export const useInput = () => {
   const [inputs, setInputs] = useState<IInputs>({
     forward: false,
@@ -131,38 +85,6 @@ export const useInput = () => {
     negative: false,
     developer: false,
   });
-
-  useEffect(() => {
-    addDownEvent("inputDown", (evt: KeyboardEvent) => {
-      const key: string = evt.key.toLowerCase();
-
-      if (!Reflect.has(InputMap, key)) {
-        return;
-      }
-
-      const inputField = InputMap[key as ValidInputKB];
-
-      setInputs((i) => ({
-        ...i,
-        [inputField]: true,
-      }));
-    });
-
-    addUpEvent("inputUp", (evt: KeyboardEvent) => {
-      const key: string = evt.key.toLowerCase();
-
-      if (!Reflect.has(InputMap, key)) {
-        return;
-      }
-
-      const inputField = InputMap[key as ValidInput];
-
-      setInputs((i) => ({
-        ...i,
-        [inputField]: false,
-      }));
-    });
-  }, []);
 
   // const gamepad = useRef<Gamepad>();
 

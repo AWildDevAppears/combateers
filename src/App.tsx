@@ -15,6 +15,7 @@ import { TavernView } from "./common/views/TavernView/TavernView";
 import { Shop } from "./containers/ShopContainer/Shop/Shop";
 
 import style from "./App.module.css";
+import { InputProvider } from "./common/services/input/InputProvider";
 
 function App() {
   const isLoadingRoute = useRouteMatch(RoutingService.ROUTE.LOADING);
@@ -22,39 +23,44 @@ function App() {
 
   return (
     <div className={style.base}>
-      <main className={style.content}>
-        <Routes>
-          <Route
-            path={RoutingService.ROUTE.LOADING}
-            element={<LoadingView />}
-          />
-          <Route
-            path={RoutingService.ROUTE.CHARACTER}
-            element={<StatisticsView />}
-          />
-          <Route
-            path={RoutingService.ROUTE.QUEST_LIST}
-            element={<QuestList />}
-          />
-          <Route
-            path={RoutingService.ROUTE.ACTIVE_QUEST}
-            element={<ActiveQuest />}
-          />
-          <Route
-            path={RoutingService.ROUTE.COMPLETE_QUEST}
-            element={<QuestComplete />}
-          />
+      <InputProvider>
+        <main className={style.content}>
+          <Routes>
+            <Route
+              path={RoutingService.ROUTE.LOADING}
+              element={<LoadingView />}
+            />
+            <Route
+              path={RoutingService.ROUTE.CHARACTER}
+              element={<StatisticsView />}
+            />
+            <Route
+              path={RoutingService.ROUTE.QUEST_LIST}
+              element={<QuestList />}
+            />
+            <Route
+              path={RoutingService.ROUTE.ACTIVE_QUEST}
+              element={<ActiveQuest />}
+            />
+            <Route
+              path={RoutingService.ROUTE.COMPLETE_QUEST}
+              element={<QuestComplete />}
+            />
 
-          <Route path={RoutingService.ROUTE.TAVERN} element={<TavernView />} />
+            <Route
+              path={RoutingService.ROUTE.TAVERN}
+              element={<TavernView />}
+            />
 
-          <Route path={RoutingService.ROUTE.SHOP} element={<Shop />} />
-        </Routes>
-      </main>
-      {!isLoadingRoute && !isActiveQuestRoute && (
-        <aside className={style.aside}>
-          <TabBar />
-        </aside>
-      )}
+            <Route path={RoutingService.ROUTE.SHOP} element={<Shop />} />
+          </Routes>
+        </main>
+        {!isLoadingRoute && !isActiveQuestRoute && (
+          <aside className={style.aside}>
+            <TabBar />
+          </aside>
+        )}
+      </InputProvider>
     </div>
   );
 }

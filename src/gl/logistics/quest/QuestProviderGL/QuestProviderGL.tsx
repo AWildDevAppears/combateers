@@ -6,12 +6,13 @@ interface IQuestProviderGLProps {
 
 interface IInteractableBoolean {
   type: "bool";
-  state: boolean;
+  isActive: boolean;
 }
 
 interface IInteractableContainer {
   type: "container";
   state: Array<string>;
+  isActive: boolean;
 }
 
 interface IQuestContext {
@@ -20,6 +21,7 @@ interface IQuestContext {
     [key: string]: IInteractableBoolean | IInteractableContainer;
   };
   onInteract: (key: string) => void;
+  onInteractFinished: (key: string, cb: () => void) => void;
   generateNewMap: () => void;
 }
 
@@ -27,6 +29,7 @@ export const QuestContext = React.createContext<IQuestContext>({
   map: [],
   mapInteractableStates: {},
   onInteract: (key: string) => {},
+  onInteractFinished: (key: string, cb: () => void) => {},
   generateNewMap: () => {},
 });
 
@@ -43,7 +46,7 @@ export const QuestProviderGL: FunctionComponent<IQuestProviderGLProps> = ({
     if (mapInteractableStates[key].type === "bool") {
       setMapInteractableStates((states) => {
         const state = { ...states };
-        state[key].state = !state[key].state;
+        state[key].isActive = !state[key].isActive;
 
         return state;
       });
@@ -54,6 +57,8 @@ export const QuestProviderGL: FunctionComponent<IQuestProviderGLProps> = ({
     }
   };
 
+  const onInteractFinished = (key: string, cb: () => void) => {};
+
   const generateNewMap = () => {};
 
   return (
@@ -62,6 +67,7 @@ export const QuestProviderGL: FunctionComponent<IQuestProviderGLProps> = ({
         map: [],
         mapInteractableStates,
         onInteract,
+        onInteractFinished,
         generateNewMap,
       }}
     >

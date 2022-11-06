@@ -2,8 +2,6 @@ import { CuboidCollider, RigidBody } from "@react-three/rapier";
 import React, { FunctionComponent, useRef } from "react";
 
 import { TILE_SIZE, WALL_HEIGHT } from "../../../../constants";
-import { GROUP_LAYERS } from "../../../logistics/collisions/CollisionProviderGL/CollisionProviderGL";
-import { useCollisionGroup } from "../../../logistics/collisions/CollisionProviderGL/hooks/useCollisionGroup";
 
 interface IWallGLProps {
   position?: [number, number, number];

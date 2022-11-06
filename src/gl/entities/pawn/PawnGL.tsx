@@ -10,11 +10,13 @@ import React, {
   FunctionComponent,
   Ref,
   RefObject,
+  useContext,
   useEffect,
   useRef,
 } from "react";
 import { Mesh, Vector3 } from "three";
 import { useInput } from "../../../common/hooks/useInput";
+import { InputContext } from "../../../common/services/input/InputProvider";
 
 interface IPawnGLProps {
   position: [number, number, number];
@@ -29,7 +31,7 @@ export const PawnGL: FunctionComponent<IPawnGLProps> = ({
   lockIdle = true,
 }) => {
   const mesh = useRef<RigidBodyApi>(null);
-  const { forward, backward, left, right } = useInput();
+  const { forward, backward, left, right } = useContext(InputContext).inputs;
   const collisions = {
     collU: false,
     collD: false,
