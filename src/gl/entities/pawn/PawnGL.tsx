@@ -1,21 +1,7 @@
 import { useFrame } from "@react-three/fiber";
-import {
-  BallCollider,
-  ColliderApi,
-  MeshCollider,
-  RigidBody,
-  RigidBodyApi,
-} from "@react-three/rapier";
-import React, {
-  FunctionComponent,
-  Ref,
-  RefObject,
-  useContext,
-  useEffect,
-  useRef,
-} from "react";
-import { Mesh, Vector3 } from "three";
-import { useInput } from "../../../common/hooks/useInput";
+import { MeshCollider, RigidBody, RigidBodyApi } from "@react-three/rapier";
+import React, { FunctionComponent, useContext, useEffect, useRef } from "react";
+import { Vector3 } from "three";
 import { InputContext } from "../../../common/services/input/InputProvider";
 
 interface IPawnGLProps {

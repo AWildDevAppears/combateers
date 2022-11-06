@@ -1,8 +1,11 @@
-import React, { FunctionComponent, ReactNode, useState } from "react";
+import React, { FunctionComponent, ReactNode, useRef, useState } from "react";
+import { Tilesets } from "../../../../data/Tilesets";
 
 interface IQuestProviderGLProps {
   children?: ReactNode;
 }
+
+export type InteractableType = "bool" | "container";
 
 interface IInteractableBoolean {
   type: "bool";
@@ -20,16 +23,22 @@ interface IQuestContext {
   mapInteractableStates: {
     [key: string]: IInteractableBoolean | IInteractableContainer;
   };
-  onInteract: (key: string) => void;
-  onInteractFinished: (key: string, cb: () => void) => void;
+  currentOverlay: string;
+  currentInteractive: { key: string; cb: () => void };
+  onInteract: (key: string, cb: () => void) => void;
+  addInteractive: (id: string, type: InteractableType) => void;
+  endInteraction: () => void;
   generateNewMap: () => void;
 }
 
 export const QuestContext = React.createContext<IQuestContext>({
   map: [],
   mapInteractableStates: {},
-  onInteract: (key: string) => {},
-  onInteractFinished: (key: string, cb: () => void) => {},
+  currentInteractive: { key: "", cb: () => {} },
+  currentOverlay: "",
+  onInteract: (key: string, cb: () => void) => {},
+  addInteractive: (id: string, type: InteractableType) => {},
+  endInteraction: () => {},
   generateNewMap: () => {},
 });
 
@@ -40,8 +49,19 @@ export const QuestProviderGL: FunctionComponent<IQuestProviderGLProps> = ({
     [key: string]: IInteractableBoolean | IInteractableContainer;
   }>({});
 
-  const onInteract = (key: string) => {
+  const [map, setMap] = useState<string[][]>([]);
+
+  const [currentInteractive, setCurrentInteractive] = useState({
+    key: "",
+    cb: () => {},
+  });
+
+  const [currentOverlay, setCurrentOverlay] = useState<string>("");
+
+  const onInteract = (key: string, cb: () => void) => {
     if (!Reflect.has(mapInteractableStates, key)) return;
+
+    setCurrentInteractive({ key, cb });
 
     if (mapInteractableStates[key].type === "bool") {
       setMapInteractableStates((states) => {
@@ -54,20 +74,54 @@ export const QuestProviderGL: FunctionComponent<IQuestProviderGLProps> = ({
 
     if (mapInteractableStates[key].type === "container") {
       // Handle opening a container to view its inventory
+      setCurrentOverlay("container");
     }
   };
 
-  const onInteractFinished = (key: string, cb: () => void) => {};
+  const generateNewMap = () => {
+    const currentMap = Tilesets.devRoom;
+    setMap(currentMap);
+  };
 
-  const generateNewMap = () => {};
+  const addInteractive = (id: string, type: InteractableType) => {
+    const newInteractable: IInteractableBoolean | IInteractableContainer =
+      type === "container"
+        ? {
+            type,
+            state: [],
+            isActive: false,
+          }
+        : {
+            type,
+            isActive: false,
+          };
+
+    setMapInteractableStates((state) => ({
+      ...state,
+      [id]: newInteractable,
+    }));
+  };
+
+  const endInteraction = () => {
+    setCurrentOverlay("");
+
+    if (currentInteractive.key !== "") {
+      currentInteractive.cb();
+
+      setCurrentInteractive({ key: "", cb: () => {} });
+    }
+  };
 
   return (
     <QuestContext.Provider
       value={{
-        map: [],
+        map,
         mapInteractableStates,
+        currentInteractive,
+        currentOverlay,
+        addInteractive,
+        endInteraction,
         onInteract,
-        onInteractFinished,
         generateNewMap,
       }}
     >

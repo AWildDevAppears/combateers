@@ -2,12 +2,14 @@ import { BallCollider } from "@react-three/rapier";
 import React, { FunctionComponent, ReactNode } from "react";
 import { Mesh } from "three";
 import { useInteractive } from "../../../../../common/hooks/gl/useInteractive";
+import { InteractableType } from "../../../../logistics/quest/QuestProviderGL/QuestProviderGL";
 
 interface IInteractiveProps {
   pos: [number, number, number];
   rotateY: number;
   size: number;
   mesh?: Mesh;
+  type: InteractableType;
   children?: ReactNode;
 }
 
@@ -16,9 +18,10 @@ export const Interactive: FunctionComponent<IInteractiveProps> = ({
   rotateY,
   size,
   mesh,
+  type,
   children,
 }) => {
-  const { onEnterInteract, onLeaveInteract } = useInteractive(mesh?.uuid);
+  const { onEnterInteract, onLeaveInteract } = useInteractive(type, mesh?.uuid);
 
   return (
     <BallCollider

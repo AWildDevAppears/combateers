@@ -1,4 +1,3 @@
-import { Vector3 } from "@react-three/fiber";
 import React, { FunctionComponent } from "react";
 import { ITileProps } from "../../../../../data/Tiles";
 import { DoorGL } from "../../structures/DoorGL";

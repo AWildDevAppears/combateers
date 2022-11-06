@@ -1,12 +1,5 @@
-import { Vector3 } from "@react-three/fiber";
-import { BallCollider, CuboidCollider } from "@react-three/rapier";
-import React, {
-  FunctionComponent,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { CuboidCollider } from "@react-three/rapier";
+import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { Mesh } from "three";
 import { useRelativeTilePosition } from "../../../../../common/hooks/gl/useRelativeTilePosition";
 import { IStructureProps } from "../../../../../data/Structures";
@@ -35,6 +28,7 @@ export const ChestGL: FunctionComponent<IChestGLProps> = ({
       rotateY={rotateY}
       size={1.5}
       mesh={mesh.current as Mesh}
+      type="container"
     >
       <CuboidCollider
         position={[0, 0, 0]}
