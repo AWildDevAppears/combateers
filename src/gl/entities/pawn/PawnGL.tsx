@@ -8,15 +8,7 @@ import React, {
   useMemo,
   useRef,
 } from "react";
-import {
-  Camera,
-  Group,
-  Matrix4,
-  Mesh,
-  Object3D,
-  Quaternion,
-  Vector3,
-} from "three";
+import { Group, Vector3 } from "three";
 import { InputContext } from "../../../common/services/input/InputProvider";
 
 interface IPawnGLProps {
