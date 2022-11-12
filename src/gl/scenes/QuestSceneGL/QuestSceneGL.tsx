@@ -1,4 +1,4 @@
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, PointerLockControls } from "@react-three/drei";
 import React, {
   FunctionComponent,
   useContext,
@@ -26,7 +26,7 @@ export const QuestSceneGL: FunctionComponent<IQuestSceneGLProps> = () => {
     <>
       <ContainerInventory isOpen={ctx.currentOverlay === "container"} />
       <MasterScene hasPhysics={true}>
-        <OrbitControls />
+        {/* <OrbitControls /> */}
         <ambientLight />
         <TileMap tileset={ctx.map} onGetPlayerSpawn={setPlayerPosition}>
           {playerPos && <PawnGL position={playerPos} lockIdle={false} />}

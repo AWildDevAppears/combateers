@@ -10,7 +10,7 @@ export const ObjectViewerGL: FunctionComponent<IObjectViewerGLProps> = ({
 }) => {
   return (
     <group>
-      <OrbitControls />
+      {/* <OrbitControls /> */}
       <ambientLight />
 
       {children}

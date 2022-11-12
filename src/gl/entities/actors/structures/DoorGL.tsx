@@ -27,7 +27,10 @@ export const DoorGL: FunctionComponent<IDoorGLProps> = ({
         </mesh>
       </CuboidCollider>
 
-      <CuboidCollider position={[0, 0.85, 0]} args={[0.25, 0.3 / 2, 1]}>
+      <CuboidCollider
+        position={[0, WALL_HEIGHT - WALL_HEIGHT * 0.5375, 0]}
+        args={[0.25, 0.3 / 2, 1]}
+      >
         <mesh scale={1}>
           <boxGeometry args={[0.5, 0.3, 2]} />
           <meshStandardMaterial color={"red"} />

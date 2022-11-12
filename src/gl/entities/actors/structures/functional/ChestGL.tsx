@@ -12,7 +12,7 @@ export const ChestGL: FunctionComponent<IChestGLProps> = ({
   rotateY,
 }) => {
   const mesh = useRef<Mesh>(null);
-  const geo = useRef<[number, number, number]>([1, 0.4, 0.4]);
+  const geo = useRef<[number, number, number]>([2, 0.8, 0.8]);
   const pos = useRelativeTilePosition(geo.current, position);
   const [isReady, setIsReady] = useState(false);
 
