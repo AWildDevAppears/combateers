@@ -16,7 +16,7 @@ export const InputMap = {
   a: "left",
   d: "right",
   e: "interact",
-  esc: "negative",
+  escape: "negative",
   l: "developer",
 
   // XINPUT
@@ -75,6 +75,7 @@ const state: IInputEventState = {
   upEvents: {},
 };
 
+// DEFUNCT
 export const useInput = () => {
   const [inputs, setInputs] = useState<IInputs>({
     forward: false,

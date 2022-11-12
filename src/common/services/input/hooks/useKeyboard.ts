@@ -1,11 +1,21 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { InputMap } from "../../../hooks/useInput";
-import { IInputs, RegisteredInputs } from "../InputProvider";
+import { RegisteredInputs } from "../InputProvider";
 
-type ValidInputKB = "w" | "a" | "s" | "d" | "e" | "esc";
+type ValidInputKB = "w" | "a" | "s" | "d" | "e" | "escape";
+
+interface IKeyboardInputs {
+  forward: number;
+  backward: number;
+  left: number;
+  right: number;
+  interact: number;
+  negative: number;
+  developer: number;
+}
 
 export const useKeyboard = () => {
-  const [inputs, setInputs] = useState<IInputs>({
+  const [inputs, setInputs] = useState<IKeyboardInputs>({
     forward: 0,
     backward: 0,
     left: 0,

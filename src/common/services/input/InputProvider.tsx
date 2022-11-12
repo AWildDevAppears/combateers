@@ -1,12 +1,15 @@
 import React, {
   FunctionComponent,
   ReactNode,
+  useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
+import { Euler, Mesh } from "three";
 import { useKeyboard } from "./hooks/useKeyboard";
+import { useMouse } from "./hooks/useMouse";
 
 export interface IInputs {
   forward: number;
@@ -16,6 +19,9 @@ export interface IInputs {
   interact: number;
   negative: number;
   developer: number;
+
+  // Character rotation
+  rotation: Euler;
 }
 
 export type RegisteredInputs =
@@ -28,6 +34,7 @@ export type RegisteredInputs =
 
 interface IInputContext {
   inputs: IInputs;
+  currentMesh?: Mesh;
 }
 
 const defaultInputs: IInputs = {
@@ -41,6 +48,9 @@ const defaultInputs: IInputs = {
   interact: 0,
   negative: 0,
   developer: 0,
+
+  // Rotation
+  rotation: new Euler(),
 };
 
 export const InputContext = React.createContext<IInputContext>({
@@ -54,18 +64,29 @@ interface IInputProviderProps {
 export const InputProvider: FunctionComponent<IInputProviderProps> = ({
   children,
 }) => {
-  const [value, setValue] = useState({
+  const attachToMesh = useCallback((currentMesh: Mesh) => {
+    setValue((val) => ({
+      ...val,
+      currentMesh,
+    }));
+  }, []);
+
+  const [value, setValue] = useState<IInputContext>({
     inputs: defaultInputs,
   });
 
   const keyboardInputs = useKeyboard();
+  const mouseLocation = useMouse();
 
   useEffect(() => {
     setValue((state) => ({
       ...state,
-      inputs: keyboardInputs,
+      inputs: {
+        ...keyboardInputs,
+        rotation: mouseLocation,
+      },
     }));
-  }, [keyboardInputs]);
+  }, [keyboardInputs, mouseLocation]);
 
   return (
     <InputContext.Provider value={value}>{children}</InputContext.Provider>
