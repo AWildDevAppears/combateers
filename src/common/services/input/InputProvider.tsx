@@ -64,13 +64,6 @@ interface IInputProviderProps {
 export const InputProvider: FunctionComponent<IInputProviderProps> = ({
   children,
 }) => {
-  const attachToMesh = useCallback((currentMesh: Mesh) => {
-    setValue((val) => ({
-      ...val,
-      currentMesh,
-    }));
-  }, []);
-
   const [value, setValue] = useState<IInputContext>({
     inputs: defaultInputs,
   });
