@@ -31,7 +31,6 @@ export const useInteractive = (type: InteractableType, id?: string) => {
     if (interact && !isInteracting.current) {
       ctx.onInteract(id, () => {
         isInteracting.current = false;
-        console.log("I have closed the chest");
       });
 
       isInteracting.current = true;
