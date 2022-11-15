@@ -1,5 +1,6 @@
 import { Vector3 } from "@react-three/fiber";
 import { FunctionComponent } from "react";
+import { DummyGL } from "../gl/entities/actors/structures/clutter/DummyGL";
 
 // TODO: consider lazy loading these.
 import { PillarGL } from "../gl/entities/actors/structures/clutter/PillarGL";
@@ -49,4 +50,5 @@ export const Structures: { [key: string]: IStructure } = {
   S1: PillarGL,
   S2: TorchGL,
   S3: ChestGL,
+  S4: DummyGL,
 };
