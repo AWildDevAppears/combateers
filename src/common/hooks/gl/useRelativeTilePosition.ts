@@ -1,7 +1,6 @@
 import { Vector3 } from "@react-three/fiber";
 import { useMemo } from "react";
-
-export const WALL_HEIGHT = 2;
+import { WALL_HEIGHT } from "../../../constants";
 
 export const useRelativeTilePosition = (
   geo: [number, number, number],
